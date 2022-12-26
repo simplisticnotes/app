@@ -21,7 +21,7 @@ function signin() {
         <Auth
           supabaseClient={supabase}
           providers={["google"]}
-          redirectTo={"http://localhost:3000/signin"}
+          redirectTo={`${process.env.NEXT_PUBLIC_SITE_URL}/signin`}
           appearance={{
             theme: ThemeSupa,
             variables: {
