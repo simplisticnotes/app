@@ -1,17 +1,16 @@
-import React, { useEffect } from "react";
-import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
-import { useRouter } from "next/router";
+import React, { useEffect } from "react"
+import { Auth, ThemeSupa } from "@supabase/auth-ui-react"
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
+import { useRouter } from "next/router"
 
 function signin() {
-  const supabase = useSupabaseClient();
-  const user = useUser();
-  const router = useRouter();
+  const supabase = useSupabaseClient()
+  const user = useUser()
+  const router = useRouter()
 
   useEffect(() => {
-    console.log(user);
-    if (user) router.replace("/app");
-  }, [user]);
+    if (user) router.replace("/app")
+  }, [user])
 
   return (
     <>
@@ -28,15 +27,15 @@ function signin() {
             variables: {
               default: {
                 colors: {
-                  brand: "#49111C",
-                },
-              },
-            },
+                  brand: "#49111C"
+                }
+              }
+            }
           }}
         />
       </div>
     </>
-  );
+  )
 }
 
-export default signin;
+export default signin

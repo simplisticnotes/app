@@ -1,39 +1,47 @@
-import React, { useEffect, useState } from "react";
-import { useAppContext } from "../context/AppContext";
-import { noteTypes } from "../utils";
-import { NotificationManager } from "react-notifications";
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import React, { useState } from "react"
+import { useAppContext } from "../../context/AppContext"
+import { NOTE_TYPES } from "../../constants/notes"
+import { NotificationManager } from "react-notifications"
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
+import { useRouter } from "next/router"
+import { createNote } from "../../core/notes"
 
 function CreateNote() {
-  const { showCreateNoteModal, setShowCreateNoteModal } = useAppContext();
-  const [name, setName] = useState("Untitled");
-  const [type, setType] = useState(noteTypes[0]);
-  const supabase = useSupabaseClient();
-  const user = useUser();
+  const { showCreateNoteModal, setShowCreateNoteModal } = useAppContext()
+  const [name, setName] = useState("Untitled")
+  const [type, setType] = useState(NOTE_TYPES[0])
+  const supabase = useSupabaseClient()
+  const user = useUser()
+  const router = useRouter()
 
-  const changeName = (e) => setName(e.target.value);
-  const changeType = (e) => setType(e.target.value);
+  const changeName = (e) => setName(e.target.value)
+  const changeType = (e) => setType(e.target.value)
 
   const createNoteHandler = async () => {
     if (!name.trim().length) {
-      NotificationManager.error("Please enter the name!");
-      return;
+      NotificationManager.error("Please enter the name!")
+      return
     }
 
-    const { error } = await supabase.from("notes").insert({
+    const { error } = await createNote(supabase, {
       name,
       type,
-      user_id: user.id,
-    });
+      user_id: user.id
+    })
 
-    console.log(error);
-  };
+    if (error) {
+      return NotificationManager.error(error.message)
+    }
+
+    setShowCreateNoteModal(false)
+    router.push("/app/notes")
+  }
 
   return (
     <div
       className={[
         "modal modal-bottom sm:modal-middle",
-        showCreateNoteModal ? "modal-open" : null,
+        showCreateNoteModal ? "modal-open" : null
       ].join(" ")}
     >
       <div className="modal-box">
@@ -58,7 +66,7 @@ function CreateNote() {
             value={type}
             onChange={changeType}
           >
-            {noteTypes.map((noteType, i) => (
+            {NOTE_TYPES.map((noteType, i) => (
               <option value={noteType} key={i}>
                 {noteType}
               </option>
@@ -82,7 +90,7 @@ function CreateNote() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default CreateNote;
+export default CreateNote

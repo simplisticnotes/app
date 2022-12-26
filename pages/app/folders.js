@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../../components/Layout";
-import FolderItem from "../../components/FolderItem";
+import FolderItem from "../../components/items/FolderItem";
 
 function Folders() {
   return (
