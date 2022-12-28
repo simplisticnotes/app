@@ -1,14 +1,13 @@
 import React, { useState } from "react"
-import { useAppContext } from "../../context/AppContext"
-import { NOTE_TYPES } from "../../constants/notes"
 import { NotificationManager } from "react-notifications"
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
-import { useRouter } from "next/router"
-import { createNote, updateNoteName } from "../../core/notes"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
+import { updateNoteName } from "../../core/notes"
 import Spinner from "../Spinner"
+import { useModalContext } from "../../context/ModalContext"
 
 function UpdateNoteName({ noteId, initialName, setNote }) {
-  const { showUpdateNoteNameModal, toggleUpdateNoteNameModal } = useAppContext()
+  const { showUpdateNoteNameModal, toggleUpdateNoteNameModal } =
+    useModalContext()
   const [name, setName] = useState(initialName)
   const supabase = useSupabaseClient()
   const [loading, setLoading] = useState(false)

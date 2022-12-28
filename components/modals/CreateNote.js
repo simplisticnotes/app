@@ -1,14 +1,14 @@
 import React, { useState } from "react"
-import { useAppContext } from "../../context/AppContext"
 import { NOTE_TYPES } from "../../constants/notes"
 import { NotificationManager } from "react-notifications"
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
 import { useRouter } from "next/router"
 import { createNote } from "../../core/notes"
 import Spinner from "../Spinner"
+import { useModalContext } from "../../context/ModalContext"
 
 function CreateNote() {
-  const { showCreateNoteModal, toggleCreateNoteModal } = useAppContext()
+  const { showCreateNoteModal, toggleCreateNoteModal } = useModalContext()
   const [name, setName] = useState("Untitled")
   const [type, setType] = useState(NOTE_TYPES[0])
   const supabase = useSupabaseClient()

@@ -1,10 +1,10 @@
 import { createContext, useContext, useState } from "react"
 
-const AppContext = createContext()
+const ModalContext = createContext()
 
-export const useAppContext = () => useContext(AppContext)
+export const useModalContext = () => useContext(ModalContext)
 
-export const AppContextProvider = ({ children }) => {
+export const ModalContextProvider = ({ children }) => {
   const [showCreateNoteModal, setShowCreateNoteModal] = useState(false)
   const [showUpdateNoteNameModal, setShowUpdateNoteNameModal] = useState(false)
 
@@ -23,5 +23,5 @@ export const AppContextProvider = ({ children }) => {
     toggleUpdateNoteNameModal
   }
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>
+  return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
 }

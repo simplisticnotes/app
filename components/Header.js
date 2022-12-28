@@ -1,10 +1,10 @@
 import React from "react"
 import { PencilIcon } from "@heroicons/react/24/outline"
-import { useAppContext } from "../context/AppContext"
 import { useRouter } from "next/router"
+import { useModalContext } from "../context/ModalContext"
 
 function Header({ heading }) {
-  const { toggleUpdateNoteNameModal } = useAppContext()
+  const { toggleUpdateNoteNameModal } = useModalContext()
   const router = useRouter()
 
   const showEditIcon = () => {

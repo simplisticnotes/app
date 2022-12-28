@@ -5,11 +5,11 @@ import CreateNote from "../../components/modals/CreateNote"
 import FolderItem from "../../components/items/FolderItem"
 import Layout from "../../components/Layout"
 import NoteItem from "../../components/items/NoteItem"
-import { useAppContext } from "../../context/AppContext"
 import { getNotes } from "../../core/notes"
+import { useModalContext } from "../../context/ModalContext"
 
 function App({ notes }) {
-  const { toggleCreateNoteModal } = useAppContext()
+  const { toggleCreateNoteModal } = useModalContext()
 
   return (
     <Layout heading="Dashboard">
