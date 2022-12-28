@@ -1,6 +1,7 @@
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import React, { useEffect, useState } from "react"
 import { updateNoteText } from "../../core/notes"
+import moment from "moment"
 
 function PlainText({ value, onChange, noteId }) {
   const [charactersCount, setCharactersCount] = useState(0)
@@ -27,9 +28,12 @@ function PlainText({ value, onChange, noteId }) {
         className="w-full block outline-none border-2 p-3 text-lg border-slate-600 h-96"
         placeholder="Write something..."
       ></textarea>
-      <div className="text-right text-slate-400 mt-2">
+
+      <section className="flex justify-end text-slate-400 mt-2">
+        {/* TODO: Add last updated */}
+        {/* <p>Last updated: {moment(updatedAt).fromNow()}</p> */}
         <p>Character count: {charactersCount}</p>
-      </div>
+      </section>
     </>
   )
 }

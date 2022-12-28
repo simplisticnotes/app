@@ -29,7 +29,8 @@ function RichText({ value, onChange, noteId }) {
         }}
       />
 
-      <div className="text-right text-slate-400 mt-2">
+      <div className="flex justify-end text-slate-400 mt-2">
+        {/* TODO: Add last updated */}
         <p>Character count: {charactersCount}</p>
       </div>
     </>

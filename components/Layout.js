@@ -1,7 +1,7 @@
-import React from "react";
-import Content from "./Content";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
+import React from "react"
+import Content from "./Content"
+import Header from "./Header"
+import Sidebar from "./Sidebar"
 
 function Layout({ children, heading }) {
   return (
@@ -14,7 +14,7 @@ function Layout({ children, heading }) {
         <Content>{children}</Content>
       </div>
     </div>
-  );
+  )
 }
 
-export default Layout;
+export default Layout

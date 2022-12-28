@@ -3,10 +3,15 @@ import React from "react"
 import Layout from "../../../components/Layout"
 import NoteItem from "../../../components/items/NoteItem"
 import { getNotes } from "../../../core/notes"
+import Breadcrumb from "../../../components/Breadcrumb"
 
 function Notes({ notes }) {
   return (
     <Layout heading="Notes">
+      <Breadcrumb
+        links={[{ href: "/app", title: "Dashboard" }, { title: "Notes" }]}
+      />
+
       <section>
         <h2 className="text-2xl font-semibold">Your Notes</h2>
 

@@ -1,16 +1,27 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react"
 
-const AppContext = createContext();
+const AppContext = createContext()
 
-export const useAppContext = () => useContext(AppContext);
+export const useAppContext = () => useContext(AppContext)
 
 export const AppContextProvider = ({ children }) => {
-  const [showCreateNoteModal, setShowCreateNoteModal] = useState(false);
+  const [showCreateNoteModal, setShowCreateNoteModal] = useState(false)
+  const [showUpdateNoteNameModal, setShowUpdateNoteNameModal] = useState(false)
+
+  const toggleCreateNoteModal = () => {
+    setShowCreateNoteModal((prev) => !prev)
+  }
+
+  const toggleUpdateNoteNameModal = () => {
+    setShowUpdateNoteNameModal((prev) => !prev)
+  }
 
   const value = {
     showCreateNoteModal,
-    setShowCreateNoteModal,
-  };
+    toggleCreateNoteModal,
+    showUpdateNoteNameModal,
+    toggleUpdateNoteNameModal
+  }
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
-};
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>
+}

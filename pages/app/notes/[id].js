@@ -1,6 +1,8 @@
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs"
 import React, { useState } from "react"
+import Breadcrumb from "../../../components/Breadcrumb"
 import Layout from "../../../components/Layout"
+import UpdateNoteName from "../../../components/modals/UpdateNoteName"
 import PlainText from "../../../components/noteTypes/PlainText"
 import RichText from "../../../components/noteTypes/RichText"
 import { getNoteById } from "../../../core/notes"
@@ -13,10 +15,29 @@ const showEditor = (note, text, setText) => {
   ) : null
 }
 
-function Note({ note }) {
+function Note({ note: initialNote }) {
+  const [note, setNote] = useState(initialNote)
   const [text, setText] = useState(note.text)
 
-  return <Layout heading={note.name}>{showEditor(note, text, setText)}</Layout>
+  return (
+    <Layout heading={note.name}>
+      <Breadcrumb
+        links={[
+          { href: "/app", title: "Dashboard" },
+          { href: "/app/notes", title: "Notes" },
+          { title: note.name }
+        ]}
+      />
+
+      {showEditor(note, text, setText)}
+
+      <UpdateNoteName
+        noteId={note.id}
+        initialName={note.name}
+        setNote={setNote}
+      />
+    </Layout>
+  )
 }
 
 export const getServerSideProps = async (ctx) => {

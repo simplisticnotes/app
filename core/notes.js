@@ -13,3 +13,7 @@ export const createNote = async (supabase, note) => {
 export const updateNoteText = async (supabase, noteId, text) => {
   return supabase.from("notes").update({ text }).eq("id", noteId)
 }
+
+export const updateNoteName = async (supabase, noteId, name) => {
+  return supabase.from("notes").update({ name }).eq("id", noteId)
+}

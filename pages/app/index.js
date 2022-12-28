@@ -9,7 +9,7 @@ import { useAppContext } from "../../context/AppContext"
 import { getNotes } from "../../core/notes"
 
 function App({ notes }) {
-  const { setShowCreateNoteModal } = useAppContext()
+  const { toggleCreateNoteModal } = useAppContext()
 
   return (
     <Layout heading="Dashboard">
@@ -21,7 +21,7 @@ function App({ notes }) {
             <NoteItem key={note.id} note={note} />
           ))}
 
-          <CreateItem onClick={() => setShowCreateNoteModal(true)} />
+          <CreateItem onClick={toggleCreateNoteModal} />
         </section>
       </section>
 
