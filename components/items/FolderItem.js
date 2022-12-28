@@ -1,14 +1,14 @@
-import Image from "next/image";
-import React from "react";
-import ItemWrapper from "../ItemWrapper";
+import Image from "next/image"
+import React from "react"
+import ItemWrapper from "../ItemWrapper"
 
-function FolderItem() {
+function FolderItem({ folder }) {
   return (
-    <ItemWrapper>
+    <ItemWrapper href={`/app/folders/${folder.id}`}>
       <Image src="/folder-item.svg" width={50} height={50} alt="Folder name" />
-      <p className="font-medium text-lg text-center">Frontend Dev Roadmap</p>
+      <p className="font-medium text-lg text-center">{folder.name}</p>
     </ItemWrapper>
-  );
+  )
 }
 
-export default FolderItem;
+export default FolderItem

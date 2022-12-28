@@ -7,9 +7,11 @@ import Layout from "../../components/Layout"
 import NoteItem from "../../components/items/NoteItem"
 import { getNotes } from "../../core/notes"
 import { useModalContext } from "../../context/ModalContext"
+import CreateFolder from "../../components/modals/CreateFolder"
+import { getFolders } from "../../core/folders"
 
-function App({ notes }) {
-  const { toggleCreateNoteModal } = useModalContext()
+function App({ notes, folders }) {
+  const { toggleCreateNoteModal, toggleCreateFolderModal } = useModalContext()
 
   return (
     <Layout heading="Dashboard">
@@ -29,16 +31,16 @@ function App({ notes }) {
         <h2 className="text-2xl font-semibold">Recent Folders</h2>
 
         <section className="flex gap-8 mt-7 flex-wrap">
-          <FolderItem />
-          <FolderItem />
-          <FolderItem />
-          <FolderItem />
+          {folders.map((folder) => (
+            <FolderItem key={folder.id} folder={folder} />
+          ))}
 
-          <CreateItem />
+          <CreateItem onClick={toggleCreateFolderModal} />
         </section>
       </section>
 
       <CreateNote />
+      <CreateFolder />
     </Layout>
   )
 }
@@ -59,14 +61,16 @@ export const getServerSideProps = async (ctx) => {
     }
   }
 
-  const { data, error } = await getNotes(supabase)
+  const { data: notes, error: notesError } = await getNotes(supabase)
+  const { data: folders, error: foldersError } = await getFolders(supabase)
 
   // TODO: Handle error
 
   return {
     props: {
       initialSession: session,
-      notes: data
+      notes,
+      folders
     }
   }
 }
