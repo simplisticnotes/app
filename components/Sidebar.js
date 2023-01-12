@@ -1,14 +1,19 @@
-import React from "react";
-import NavItem from "./items/NavItem";
+import React from "react"
+import NavItem from "./items/NavItem"
 import {
   HomeIcon,
   BookOpenIcon,
   FolderIcon,
   TrashIcon,
-  ArrowLeftOnRectangleIcon,
-} from "@heroicons/react/24/outline";
+  ArrowLeftOnRectangleIcon
+} from "@heroicons/react/24/outline"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
+import { useRouter } from "next/router"
 
 function Sidebar() {
+  const router = useRouter()
+  const supabase = useSupabaseClient()
+
   return (
     <div className="w-48 bg-secondary h-screen flex flex-col">
       <div className="border-b-2 pt-2 pb-3 border-white">
@@ -35,12 +40,19 @@ function Sidebar() {
       </div>
 
       <div className="px-4">
-        <NavItem Icon={ArrowLeftOnRectangleIcon} button>
+        <NavItem
+          Icon={ArrowLeftOnRectangleIcon}
+          button
+          onClick={async () => {
+            await supabase.auth.signOut()
+            router.push("/signin")
+          }}
+        >
           Logout
         </NavItem>
       </div>
     </div>
-  );
+  )
 }
 
-export default Sidebar;
+export default Sidebar

@@ -4,8 +4,13 @@ import FolderItem from "../../components/items/FolderItem"
 import Breadcrumb from "../../components/Breadcrumb"
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs"
 import { getFolders } from "../../core/folders"
+import { useModalContext } from "../../context/ModalContext"
+import CreateFolder from "../../components/modals/CreateFolder"
+import CreateItem from "../../components/items/CreateItem"
 
 function Folders({ folders }) {
+  const { toggleCreateFolderModal } = useModalContext()
+
   return (
     <Layout heading="Folders">
       <Breadcrumb
@@ -19,8 +24,12 @@ function Folders({ folders }) {
           {folders.map((folder) => (
             <FolderItem key={folder.id} folder={folder} />
           ))}
+
+          <CreateItem onClick={toggleCreateFolderModal} />
         </section>
       </section>
+
+      <CreateFolder />
     </Layout>
   )
 }

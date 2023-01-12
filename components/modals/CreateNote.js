@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 import { NOTE_TYPES } from "../../constants/notes"
-import { NotificationManager } from "react-notifications"
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
 import { useRouter } from "next/router"
 import { createNote } from "../../core/notes"
 import Spinner from "../Spinner"
 import { useModalContext } from "../../context/ModalContext"
+import { toast } from "react-hot-toast"
 
 function CreateNote() {
   const { showCreateNoteModal, toggleCreateNoteModal } = useModalContext()
@@ -21,7 +21,7 @@ function CreateNote() {
 
   const createNoteHandler = async () => {
     if (!name.trim().length) {
-      NotificationManager.error("Please enter the name!")
+      toast.error("Please enter the name!")
       return
     }
 
@@ -34,13 +34,15 @@ function CreateNote() {
     })
 
     if (error) {
-      return NotificationManager.error(error.message)
+      return toast.error(error.message)
     }
 
     setLoading(false)
 
     toggleCreateNoteModal()
-    router.push("/app/notes")
+
+    toast.success("Note created successfully!")
+    router.push(router.asPath)
   }
 
   return (

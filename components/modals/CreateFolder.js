@@ -1,10 +1,10 @@
 import React, { useState } from "react"
-import { NotificationManager } from "react-notifications"
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
 import { useRouter } from "next/router"
 import { createFolder } from "../../core/folders"
 import Spinner from "../Spinner"
 import { useModalContext } from "../../context/ModalContext"
+import { toast } from "react-hot-toast"
 
 function CreateFolder() {
   const { showCreateFolderModal, toggleCreateFolderModal } = useModalContext()
@@ -18,7 +18,7 @@ function CreateFolder() {
 
   const createFolderHandler = async () => {
     if (!name.trim().length) {
-      return NotificationManager.error("Please enter the name!")
+      return toast.error("Please enter the name!")
     }
 
     setLoading(true)
@@ -29,13 +29,15 @@ function CreateFolder() {
     })
 
     if (error) {
-      return NotificationManager.error(error.message)
+      return toast.error(error.message)
     }
 
     setLoading(false)
 
     toggleCreateFolderModal()
-    router.push("/app/folders")
+
+    toast.success("Folder created successfully!")
+    router.push(router.asPath)
   }
 
   return (
