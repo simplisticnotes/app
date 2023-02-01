@@ -3,6 +3,7 @@ import { NOTE_TYPES } from "../../constants/notes"
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
 import { useRouter } from "next/router"
 import { createNote, deleteNote } from "../../core/notes"
+import { deleteFolder } from "../../core/folders"
 import Spinner from "../Spinner"
 import { useModalContext } from "../../context/ModalContext"
 import { toast } from "react-hot-toast"
@@ -25,6 +26,8 @@ function DeleteItem() {
 
     if (deleteType === "Note") {
       var { error } = await deleteNote(supabase, deleteItemId)
+    } else if (deleteType === "Folder") {
+      var { error } = await deleteFolder(supabase, deleteItemId)
     }
 
     if (error) {

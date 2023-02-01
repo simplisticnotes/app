@@ -13,3 +13,7 @@ export const createFolder = async (supabase, folder) => {
 export const updateFolderName = async (supabase, folderId, name) => {
   return supabase.from("folders").update({ name }).eq("id", folderId)
 }
+
+export const deleteFolder = async (supabase, id) => {
+  return supabase.from("folders").delete().eq("id", id)
+}

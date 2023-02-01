@@ -1,8 +1,6 @@
 import Image from "next/image"
-import React from "react"
 import { useModalContext } from "../../context/ModalContext"
 import ItemWrapper from "../ItemWrapper"
-import { deleteNote } from "../../core/notes"
 
 function NoteItem({ note }) {
   const { toggleDeleteItemModal } = useModalContext()
