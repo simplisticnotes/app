@@ -9,6 +9,7 @@ import { getNotes } from "../../core/notes"
 import { useModalContext } from "../../context/ModalContext"
 import CreateFolder from "../../components/modals/CreateFolder"
 import { getFolders } from "../../core/folders"
+import DeleteItem from "../../components/modals/DeleteItem"
 
 function App({ notes, folders }) {
   const { toggleCreateNoteModal, toggleCreateFolderModal } = useModalContext()
@@ -41,6 +42,7 @@ function App({ notes, folders }) {
 
       <CreateNote />
       <CreateFolder />
+      <DeleteItem />
     </Layout>
   )
 }

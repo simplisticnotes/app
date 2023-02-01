@@ -17,3 +17,8 @@ export const updateNoteText = async (supabase, noteId, text) => {
 export const updateNoteName = async (supabase, noteId, name) => {
   return supabase.from("notes").update({ name }).eq("id", noteId)
 }
+
+export const deleteNote = async (supabase, id) => {
+  console.log("DELETE", id)
+  return supabase.from("notes").delete().eq("id", id)
+}

@@ -3,7 +3,7 @@ import React from "react"
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline"
 import { TrashIcon } from "@heroicons/react/24/outline"
 
-function ItemWrapper({ children, href, className }) {
+function ItemWrapper({ children, href, className, onDelete }) {
   return (
     <Link
       href={href || "#"}
@@ -32,6 +32,7 @@ function ItemWrapper({ children, href, className }) {
             className="flex items-center flex-row gap-2 text-red-500 hover:bg-slate-200 p-2 rounded"
             onClick={(e) => {
               e.preventDefault()
+              onDelete()
             }}
           >
             <TrashIcon className="w-4 p-0" /> Delete
