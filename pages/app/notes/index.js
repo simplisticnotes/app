@@ -4,8 +4,12 @@ import Layout from "../../../components/Layout"
 import NoteItem from "../../../components/items/NoteItem"
 import { getNotes } from "../../../core/notes"
 import Breadcrumb from "../../../components/Breadcrumb"
+import { useModalContext } from "../../../context/ModalContext"
+import CreateItem from "../../../components/items/CreateItem"
 
 function Notes({ notes }) {
+  const { toggleCreateNoteModal } = useModalContext()
+
   return (
     <Layout heading="Notes">
       <Breadcrumb
@@ -19,6 +23,8 @@ function Notes({ notes }) {
           {notes.map((note) => (
             <NoteItem key={note.id} note={note} />
           ))}
+
+          <CreateItem onClick={toggleCreateNoteModal} />
         </section>
       </section>
     </Layout>

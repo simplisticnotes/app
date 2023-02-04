@@ -17,6 +17,7 @@ export const ModalContextProvider = ({ children }) => {
   }
 
   const toggleDeleteItemModal = (itemId, type) => {
+    console.log("TOGGLE DELETE ITEM MODAL")
     setShowDeleteItemModal((prev) => !prev)
     setDeleteItemId(itemId)
     setDeleteType(type)
