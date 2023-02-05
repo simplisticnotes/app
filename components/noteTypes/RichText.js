@@ -4,13 +4,16 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 import "react-quill/dist/quill.snow.css"
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { updateNoteText } from "../../core/notes"
+import { encrypt } from "../../core/encryption"
 
 function RichText({ value, onChange, noteId }) {
   const [charactersCount, setCharactersCount] = useState(0)
   const supabase = useSupabaseClient()
 
   const updateNote = async () => {
-    await updateNoteText(supabase, noteId, value)
+    const encryptedValue = await encrypt(value)
+
+    await updateNoteText(supabase, noteId, encryptedValue)
   }
 
   useEffect(() => {

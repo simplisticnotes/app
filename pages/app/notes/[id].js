@@ -1,10 +1,11 @@
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Breadcrumb from "../../../components/Breadcrumb"
 import Layout from "../../../components/Layout"
 import UpdateNoteName from "../../../components/modals/UpdateNoteName"
 import PlainText from "../../../components/noteTypes/PlainText"
 import RichText from "../../../components/noteTypes/RichText"
+import { decrypt } from "../../../core/encryption"
 import { getNoteById } from "../../../core/notes"
 
 const showEditor = (note, text, setText) => {
@@ -17,7 +18,16 @@ const showEditor = (note, text, setText) => {
 
 function Note({ note: initialNote }) {
   const [note, setNote] = useState(initialNote)
-  const [text, setText] = useState(note.text)
+  const [text, setText] = useState("")
+
+  const decryptNote = async () => {
+    const decryptedText = await decrypt(note.text)
+    setText(decryptedText)
+  }
+
+  useEffect(() => {
+    decryptNote()
+  }, [])
 
   return (
     <Layout heading={note.name}>

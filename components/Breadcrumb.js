@@ -7,9 +7,9 @@ function Breadcrumb({ links = [] }) {
       <ul>
         {links.map((link, i) =>
           i === links.length - 1 ? (
-            <li>{link.title}</li>
+            <li key={i}>{link.title}</li>
           ) : (
-            <li>
+            <li key={i}>
               <Link className="text-blue-500" href={link.href}>
                 {link.title}
               </Link>

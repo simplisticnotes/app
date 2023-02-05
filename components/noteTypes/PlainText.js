@@ -1,7 +1,7 @@
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import React, { useEffect, useState } from "react"
 import { updateNoteText } from "../../core/notes"
-import moment from "moment"
+import { encrypt } from "../../core/encryption"
 
 function PlainText({ value, onChange, noteId }) {
   const [charactersCount, setCharactersCount] = useState(0)
@@ -12,7 +12,9 @@ function PlainText({ value, onChange, noteId }) {
   }, [value])
 
   const updateNote = async () => {
-    await updateNoteText(supabase, noteId, value)
+    const encryptedValue = await encrypt(value)
+
+    await updateNoteText(supabase, noteId, encryptedValue)
   }
 
   useEffect(() => {
