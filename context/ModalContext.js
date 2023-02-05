@@ -9,6 +9,8 @@ export const ModalContextProvider = ({ children }) => {
   const [showDeleteItemModal, setShowDeleteItemModal] = useState(false)
   const [showCreateFolderModal, setShowCreateFolderModal] = useState(false)
   const [showUpdateNoteNameModal, setShowUpdateNoteNameModal] = useState(false)
+  const [showNotePasswordModal, setShowNotePasswordModal] = useState(false)
+
   const [deleteItemId, setDeleteItemId] = useState(null)
   const [deleteType, setDeleteType] = useState(null)
 
@@ -31,6 +33,10 @@ export const ModalContextProvider = ({ children }) => {
     setShowUpdateNoteNameModal((prev) => !prev)
   }
 
+  const toggleNotePasswordModal = () => {
+    setShowNotePasswordModal(!showNotePasswordModal)
+  }
+
   const value = {
     showCreateNoteModal,
     toggleCreateNoteModal,
@@ -41,7 +47,9 @@ export const ModalContextProvider = ({ children }) => {
     showDeleteItemModal,
     toggleDeleteItemModal,
     deleteItemId,
-    deleteType
+    deleteType,
+    showNotePasswordModal,
+    toggleNotePasswordModal
   }
 
   return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>

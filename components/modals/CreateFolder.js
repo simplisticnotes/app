@@ -16,6 +16,16 @@ function CreateFolder() {
 
   const changeName = (e) => setName(e.target.value)
 
+  const reset = () => {
+    setName("Untitled")
+    setLoading(false)
+  }
+
+  const closeModal = () => {
+    reset()
+    toggleCreateFolderModal()
+  }
+
   const createFolderHandler = async () => {
     if (!name.trim().length) {
       return toast.error("Please enter the name!")
@@ -34,7 +44,7 @@ function CreateFolder() {
 
     setLoading(false)
 
-    toggleCreateFolderModal()
+    closeModal()
 
     toast.success("Folder created successfully!")
     router.push(router.asPath)
@@ -64,7 +74,7 @@ function CreateFolder() {
         <div className="modal-action">
           <button
             className="btn bg-white text-black hover:bg-white"
-            onClick={toggleCreateFolderModal}
+            onClick={closeModal}
           >
             Cancel
           </button>

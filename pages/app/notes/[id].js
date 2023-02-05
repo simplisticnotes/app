@@ -2,9 +2,11 @@ import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs"
 import React, { useEffect, useState } from "react"
 import Breadcrumb from "../../../components/Breadcrumb"
 import Layout from "../../../components/Layout"
+import NotePassword from "../../../components/modals/NotePassword"
 import UpdateNoteName from "../../../components/modals/UpdateNoteName"
 import PlainText from "../../../components/noteTypes/PlainText"
 import RichText from "../../../components/noteTypes/RichText"
+import { useModalContext } from "../../../context/ModalContext"
 import { decrypt } from "../../../core/encryption"
 import { getNoteById } from "../../../core/notes"
 
@@ -19,11 +21,23 @@ const showEditor = (note, text, setText) => {
 function Note({ note: initialNote }) {
   const [note, setNote] = useState(initialNote)
   const [text, setText] = useState("")
+  const [noteLocked, setNoteLocked] = useState(true)
+  const { toggleNotePasswordModal } = useModalContext()
 
   const decryptNote = async () => {
     const decryptedText = await decrypt(note.text)
     setText(decryptedText)
   }
+
+  const showNote = () => setNoteLocked(false)
+
+  useEffect(() => {
+    if (note.apply_password) {
+      toggleNotePasswordModal()
+    } else {
+      showNote()
+    }
+  }, [])
 
   useEffect(() => {
     decryptNote()
@@ -46,6 +60,12 @@ function Note({ note: initialNote }) {
         initialName={note.name}
         setNote={setNote}
       />
+
+      {noteLocked ? (
+        <div className="fixed top-0 left-0 right-0 bottom-0 bg-secondary"></div>
+      ) : null}
+
+      <NotePassword notePassword={note.password} showNote={showNote} />
     </Layout>
   )
 }

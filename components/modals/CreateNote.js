@@ -11,6 +11,8 @@ function CreateNote() {
   const { showCreateNoteModal, toggleCreateNoteModal } = useModalContext()
   const [name, setName] = useState("Untitled")
   const [type, setType] = useState(NOTE_TYPES[0])
+  const [applyPassword, setApplyPassword] = useState(false)
+  const [password, setPassword] = useState("")
   const supabase = useSupabaseClient()
   const user = useUser()
   const router = useRouter()
@@ -18,10 +20,30 @@ function CreateNote() {
 
   const changeName = (e) => setName(e.target.value)
   const changeType = (e) => setType(e.target.value)
+  const changeApplyPassword = () => setApplyPassword(!applyPassword)
+  const changePassword = (e) => setPassword(e.target.value)
+
+  const reset = () => {
+    setName("Untitled")
+    setType(NOTE_TYPES[0])
+    setApplyPassword(false)
+    setPassword("")
+    setLoading(false)
+  }
+
+  const closeModal = () => {
+    reset()
+    toggleCreateNoteModal()
+  }
 
   const createNoteHandler = async () => {
     if (!name.trim().length) {
       toast.error("Please enter the name!")
+      return
+    }
+
+    if (applyPassword && !password.trim().length) {
+      toast.error("Please enter the password!")
       return
     }
 
@@ -30,7 +52,9 @@ function CreateNote() {
     const { error } = await createNote(supabase, {
       name,
       type,
-      user_id: user.id
+      user_id: user.id,
+      apply_password: applyPassword,
+      password
     })
 
     if (error) {
@@ -39,7 +63,7 @@ function CreateNote() {
 
     setLoading(false)
 
-    toggleCreateNoteModal()
+    closeModal()
 
     toast.success("Note created successfully!")
     router.push(router.asPath)
@@ -82,10 +106,35 @@ function CreateNote() {
           </select>
         </div>
 
+        <div className="flex text-xl gap-2 mt-8">
+          <input
+            type="checkbox"
+            checked={applyPassword}
+            onChange={changeApplyPassword}
+            className="checkbox checkbox-primary"
+            id="note-apply-password"
+          />
+          <label htmlFor="note-apply-password">Apply Password</label>
+        </div>
+
+        {applyPassword && (
+          <div className="flex flex-col text-xl gap-2 mt-8">
+            <label htmlFor="note-password">Password</label>
+            <input
+              // type="password"
+              value={password}
+              onChange={changePassword}
+              id="note-password"
+              placeholder="Password of the note..."
+              className="outline-none border-b-2 border-black"
+            />
+          </div>
+        )}
+
         <div className="modal-action">
           <button
             className="btn bg-white text-black hover:bg-white"
-            onClick={() => toggleCreateNoteModal()}
+            onClick={closeModal}
           >
             Cancel
           </button>
