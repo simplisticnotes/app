@@ -1,5 +1,24 @@
 export const getNotes = async (supabase) => {
-  return supabase.from("notes").select("*")
+  return supabase
+    .from("notes")
+    .select("*")
+    .order("created_at", { ascending: false })
+}
+
+export const getRecentNotes = async (supabase) => {
+  return supabase
+    .from("notes")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(5)
+}
+
+export const getNotesByFolderId = async (supabase, folderId) => {
+  return supabase
+    .from("notes")
+    .select("*")
+    .eq("folder_id", folderId)
+    .order("created_at", { ascending: false })
 }
 
 export const getNoteById = async (supabase, noteId) => {

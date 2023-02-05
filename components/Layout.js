@@ -6,18 +6,17 @@ import CreateNote from "./modals/CreateNote"
 import DeleteItem from "./modals/DeleteItem"
 import Sidebar from "./Sidebar"
 
-function Layout({ children, heading }) {
+function Layout({ children, heading, updateName }) {
   return (
     <div className="flex">
       <Sidebar />
 
       <div className="grow">
-        <Header heading={heading} />
+        <Header heading={heading} updateName={updateName} />
 
         <Content>{children}</Content>
       </div>
 
-      <CreateNote />
       <CreateFolder />
       <DeleteItem />
     </div>

@@ -1,12 +1,12 @@
 import React from "react"
-import Layout from "../../components/Layout"
-import FolderItem from "../../components/items/FolderItem"
-import Breadcrumb from "../../components/Breadcrumb"
+import Layout from "../../../components/Layout"
+import FolderItem from "../../../components/items/FolderItem"
+import Breadcrumb from "../../../components/Breadcrumb"
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs"
-import { getFolders } from "../../core/folders"
-import { useModalContext } from "../../context/ModalContext"
-import CreateFolder from "../../components/modals/CreateFolder"
-import CreateItem from "../../components/items/CreateItem"
+import { getFolders } from "../../../core/folders"
+import { useModalContext } from "../../../context/ModalContext"
+import CreateFolder from "../../../components/modals/CreateFolder"
+import CreateItem from "../../../components/items/CreateItem"
 
 function Folders({ folders }) {
   const { toggleCreateFolderModal } = useModalContext()

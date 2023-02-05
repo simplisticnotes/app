@@ -8,7 +8,7 @@ function ItemWrapper({ children, href, className, onDelete }) {
     <Link
       href={href || "#"}
       className={[
-        "relative gap-3 w-48 flex flex-col items-center py-4 px-2 cursor-pointer shadow-md hover:shadow-lg hover:border-primary border-white border-2",
+        "relative gap-3 xs:w-48 w-full  flex flex-col items-center py-4 px-2 cursor-pointer shadow-md hover:shadow-lg hover:border-primary border-white border-2",
         className
       ].join(" ")}
     >

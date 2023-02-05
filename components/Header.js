@@ -1,10 +1,9 @@
 import React from "react"
 import { PencilIcon } from "@heroicons/react/24/outline"
 import { useRouter } from "next/router"
-import { useModalContext } from "../context/ModalContext"
+import { Bars3Icon } from "@heroicons/react/24/outline"
 
-function Header({ heading }) {
-  const { toggleUpdateNoteNameModal } = useModalContext()
+function Header({ heading, updateName }) {
   const router = useRouter()
 
   const showEditIcon = () => {
@@ -15,11 +14,14 @@ function Header({ heading }) {
   }
 
   return (
-    <header className="bg-secondary w-full py-4 font-semibold flex justify-center gap-2 items-center">
+    <header className="bg-secondary w-full py-4 font-semibold flex justify-between sm:justify-center gap-2 items-center">
+      <Bars3Icon className="w-6 block sm:hidden" />
+
       <h2 className="text-center text-xl">{heading}</h2>
+
       {showEditIcon() && (
         <PencilIcon
-          onClick={toggleUpdateNoteNameModal}
+          onClick={updateName}
           className="w-4 cursor-pointer hover:scale-110 "
         />
       )}

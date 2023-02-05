@@ -7,7 +7,7 @@ import Spinner from "../Spinner"
 import { useModalContext } from "../../context/ModalContext"
 import { toast } from "react-hot-toast"
 
-function CreateNote() {
+function CreateNote({ folderId }) {
   const { showCreateNoteModal, toggleCreateNoteModal } = useModalContext()
   const [name, setName] = useState("Untitled")
   const [type, setType] = useState(NOTE_TYPES[0])
@@ -49,13 +49,19 @@ function CreateNote() {
 
     setLoading(true)
 
-    const { error } = await createNote(supabase, {
+    const note = {
       name,
       type,
       user_id: user.id,
       apply_password: applyPassword,
       password
-    })
+    }
+
+    if (folderId) {
+      note.folder_id = folderId
+    }
+
+    const { error } = await createNote(supabase, note)
 
     if (error) {
       return toast.error(error.message)

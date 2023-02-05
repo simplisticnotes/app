@@ -4,11 +4,13 @@ import CreateItem from "../../components/items/CreateItem"
 import FolderItem from "../../components/items/FolderItem"
 import Layout from "../../components/Layout"
 import NoteItem from "../../components/items/NoteItem"
-import { getNotes } from "../../core/notes"
+import { getRecentNotes } from "../../core/notes"
 import { useModalContext } from "../../context/ModalContext"
-import { getFolders } from "../../core/folders"
+import { getRecentFolders } from "../../core/folders"
+import CreateNote from "../../components/modals/CreateNote"
 
 function App({ notes, folders }) {
+  console.log(notes)
   const { toggleCreateNoteModal, toggleCreateFolderModal } = useModalContext()
 
   return (
@@ -36,6 +38,8 @@ function App({ notes, folders }) {
           <CreateItem onClick={toggleCreateFolderModal} />
         </section>
       </section>
+
+      <CreateNote />
     </Layout>
   )
 }
@@ -56,8 +60,10 @@ export const getServerSideProps = async (ctx) => {
     }
   }
 
-  const { data: notes, error: notesError } = await getNotes(supabase)
-  const { data: folders, error: foldersError } = await getFolders(supabase)
+  const { data: notes, error: notesError } = await getRecentNotes(supabase)
+  const { data: folders, error: foldersError } = await getRecentFolders(
+    supabase
+  )
 
   // TODO: Handle error
 

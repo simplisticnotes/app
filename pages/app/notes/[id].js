@@ -23,6 +23,7 @@ function Note({ note: initialNote }) {
   const [text, setText] = useState("")
   const [noteLocked, setNoteLocked] = useState(true)
   const { toggleNotePasswordModal } = useModalContext()
+  const { toggleUpdateNoteNameModal } = useModalContext()
 
   const decryptNote = async () => {
     const decryptedText = await decrypt(note.text)
@@ -44,7 +45,7 @@ function Note({ note: initialNote }) {
   }, [])
 
   return (
-    <Layout heading={note.name}>
+    <Layout heading={note.name} updateName={toggleUpdateNoteNameModal}>
       <Breadcrumb
         links={[
           { href: "/app", title: "Dashboard" },

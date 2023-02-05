@@ -1,5 +1,16 @@
 export const getFolders = async (supabase) => {
-  return supabase.from("folders").select("*")
+  return supabase
+    .from("folders")
+    .select("*")
+    .order("created_at", { ascending: false })
+}
+
+export const getRecentFolders = async (supabase) => {
+  return supabase
+    .from("folders")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(5)
 }
 
 export const getFolderById = async (supabase, folderId) => {

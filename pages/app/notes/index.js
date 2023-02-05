@@ -6,6 +6,7 @@ import { getNotes } from "../../../core/notes"
 import Breadcrumb from "../../../components/Breadcrumb"
 import { useModalContext } from "../../../context/ModalContext"
 import CreateItem from "../../../components/items/CreateItem"
+import CreateNote from "../../../components/modals/CreateNote"
 
 function Notes({ notes }) {
   const { toggleCreateNoteModal } = useModalContext()
@@ -27,6 +28,8 @@ function Notes({ notes }) {
           <CreateItem onClick={toggleCreateNoteModal} />
         </section>
       </section>
+
+      <CreateNote />
     </Layout>
   )
 }

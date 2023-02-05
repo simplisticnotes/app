@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
-import { updateNoteName } from "../../core/notes"
 import Spinner from "../Spinner"
 import { useModalContext } from "../../context/ModalContext"
+import { updateFolderName } from "../../core/folders"
 import { toast } from "react-hot-toast"
 
-function UpdateNoteName({ noteId, initialName, setNote }) {
-  const { showUpdateNoteNameModal, toggleUpdateNoteNameModal } =
+function UpdateFolderName({ folderId, initialName, setFolder }) {
+  const { showUpdateFolderNameModal, toggleUpdateFolderNameModal } =
     useModalContext()
   const [name, setName] = useState(initialName)
   const supabase = useSupabaseClient()
@@ -14,7 +14,7 @@ function UpdateNoteName({ noteId, initialName, setNote }) {
 
   const changeName = (e) => setName(e.target.value)
 
-  const updateNoteHandler = async () => {
+  const updateFolderHandler = async () => {
     if (!name.trim().length) {
       toast.error("Please enter the name!")
       return
@@ -22,31 +22,31 @@ function UpdateNoteName({ noteId, initialName, setNote }) {
 
     setLoading(true)
 
-    const { error } = await updateNoteName(supabase, noteId, name)
+    const { error } = await updateFolderName(supabase, folderId, name)
 
     if (error) {
       return toast.error(error.message)
     }
 
-    setNote((prevNote) => ({
+    setFolder((prevNote) => ({
       ...prevNote,
       name
     }))
 
     setLoading(false)
 
-    toggleUpdateNoteNameModal()
+    toggleUpdateFolderNameModal()
   }
 
   return (
     <div
       className={[
         "modal modal-bottom sm:modal-middle",
-        showUpdateNoteNameModal ? "modal-open" : null
+        showUpdateFolderNameModal ? "modal-open" : null
       ].join(" ")}
     >
       <div className="modal-box">
-        <h3 className="mb-6 font-semibold text-2xl">Update Note Name</h3>
+        <h3 className="mb-6 font-semibold text-2xl">Update Folder Name</h3>
 
         <div className="flex flex-col text-xl gap-2">
           <label htmlFor="note-name">Name</label>
@@ -62,12 +62,12 @@ function UpdateNoteName({ noteId, initialName, setNote }) {
         <div className="modal-action">
           <button
             className="btn bg-white text-black hover:bg-white"
-            onClick={toggleUpdateNoteNameModal}
+            onClick={toggleUpdateFolderNameModal}
           >
             Cancel
           </button>
           <button
-            onClick={updateNoteHandler}
+            onClick={updateFolderHandler}
             className="btn bg-primary hover:bg-primary gap-2"
             disabled={loading}
           >
@@ -80,4 +80,4 @@ function UpdateNoteName({ noteId, initialName, setNote }) {
   )
 }
 
-export default UpdateNoteName
+export default UpdateFolderName
