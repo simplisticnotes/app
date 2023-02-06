@@ -1,5 +1,6 @@
 import React from "react"
 import Content from "./Content"
+import Drawer from "./Drawer"
 import Header from "./Header"
 import CreateFolder from "./modals/CreateFolder"
 import CreateNote from "./modals/CreateNote"
@@ -12,9 +13,11 @@ function Layout({ children, heading, updateName }) {
       <Sidebar />
 
       <div className="grow">
-        <Header heading={heading} updateName={updateName} />
+        <Drawer>
+          <Header heading={heading} updateName={updateName} />
 
-        <Content>{children}</Content>
+          <Content>{children}</Content>
+        </Drawer>
       </div>
 
       <CreateFolder />
