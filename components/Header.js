@@ -15,7 +15,7 @@ function Header({ heading, updateName }) {
 
   return (
     <header className="bg-secondary w-full py-4 px-4 font-semibold flex gap-2 items-center">
-      <label for="my-drawer" className="drawer-button block sm:hidden">
+      <label htmlFor="my-drawer" className="drawer-button block sm:hidden">
         <Bars3Icon className="w-6 cursor-pointer" />
       </label>
 

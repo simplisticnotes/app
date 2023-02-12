@@ -46,6 +46,7 @@ export async function generateKeyPair() {
 export async function encrypt(plaintext) {
   const crypto = window.crypto || window.msCrypto // for Internet Explorer 11
   const subtle = crypto.subtle || crypto.webkitSubtle
+  console.log(subtle)
 
   const enc = new TextEncoder()
   const data = enc.encode(plaintext)
@@ -61,7 +62,10 @@ export async function encrypt(plaintext) {
     false,
     ["encrypt"]
   )
-  const encrypted = await subtle.encrypt(algorithm, encryptKey, data)
+
+  var encrypted = await subtle.encrypt(algorithm, encryptKey, data)
+
+  console.log("WORK")
 
   return btoa(String.fromCharCode.apply(null, new Uint8Array(encrypted)))
 }

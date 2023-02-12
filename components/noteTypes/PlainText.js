@@ -1,7 +1,7 @@
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import React, { useEffect, useRef, useState } from "react"
 import { updateNoteText } from "../../core/notes"
-import { encrypt } from "../../core/encryption"
+import axios from "axios"
 
 function PlainText({ value, onChange, noteId }) {
   const [charactersCount, setCharactersCount] = useState(0)
@@ -18,9 +18,9 @@ function PlainText({ value, onChange, noteId }) {
   }, [value])
 
   const updateNote = async () => {
-    const encryptedValue = await encrypt(value)
+    const res = await axios.post("/api/encrypt", { text: value })
 
-    await updateNoteText(supabase, noteId, encryptedValue)
+    await updateNoteText(supabase, noteId, res.data.encryptedText)
   }
 
   useEffect(() => {

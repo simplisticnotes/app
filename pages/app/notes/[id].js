@@ -1,4 +1,5 @@
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs"
+import axios from "axios"
 import React, { useEffect, useState } from "react"
 import Breadcrumb from "../../../components/Breadcrumb"
 import Layout from "../../../components/Layout"
@@ -26,8 +27,9 @@ function Note({ note: initialNote }) {
   const { toggleUpdateNoteNameModal } = useModalContext()
 
   const decryptNote = async () => {
-    const decryptedText = await decrypt(note.text)
-    setText(decryptedText)
+    const res = await axios.post("/api/decrypt", { text: note.text })
+
+    setText(res.data.decryptedText)
   }
 
   const showNote = () => setNoteLocked(false)
