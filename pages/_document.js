@@ -1,4 +1,5 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import { Html, Head, Main, NextScript } from "next/document"
+import PaddleScript from "../components/PaddleScript"
 
 export default function Document() {
   return (
@@ -20,7 +21,9 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
+
+        <PaddleScript />
       </body>
     </Html>
-  );
+  )
 }
