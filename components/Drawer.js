@@ -18,7 +18,7 @@ function Drawer({ children }) {
       </div>
 
       <div className="drawer-side">
-        <label for="my-drawer" className="drawer-overlay"></label>
+        <label htmlFor="my-drawer" className="drawer-overlay"></label>
 
         <div className="w-80 bg-base-100 p-6 flex flex-col">
           {/* <!-- Sidebar content here --> */}

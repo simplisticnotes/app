@@ -1,15 +1,18 @@
-import React, { useState } from "react"
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
-import { useRouter } from "next/router"
-import { createFolder } from "../../core/folders"
-import Spinner from "../Spinner"
+import React, { useEffect, useRef, useState } from "react"
 import { useModalContext } from "../../context/ModalContext"
 import { toast } from "react-hot-toast"
 
 function NotePassword({ notePassword, showNote }) {
   const { showNotePasswordModal, toggleNotePasswordModal } = useModalContext()
+  const inputRef = useRef(null)
 
   const [password, setPassword] = useState("")
+
+  useEffect(() => {
+    if (showNotePasswordModal) {
+      inputRef.current.focus()
+    }
+  }, [showNotePasswordModal])
 
   const changePassword = (e) => setPassword(e.target.value)
 
@@ -47,6 +50,7 @@ function NotePassword({ notePassword, showNote }) {
             className="outline-none border-b-2 border-black"
             value={password}
             onChange={changePassword}
+            ref={inputRef}
           />
         </div>
 
