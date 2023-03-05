@@ -20,9 +20,8 @@ export default function Document() {
 
       <body>
         <Main />
-        <NextScript />
 
-        <PaddleScript />
+        <NextScript />
       </body>
     </Html>
   )

@@ -1,8 +1,46 @@
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs"
+import { useUser } from "@supabase/auth-helpers-react"
 import React from "react"
+import PaddleScript from "../components/PaddleScript"
 
 function Pricing() {
+  const user = useUser()
+
+  console.log(user)
+
+  const onUpgradeClick = () => {
+    // if (!isLoggedIn) {
+    //   router.push("#login?pricing")
+    //   return
+    // }
+
+    // setButtonLoading.on()
+
+    const passthrough = {
+      userId: user.id
+    }
+
+    // window.onPaddleSuccess = function () {
+    //   window.location.href = "/purchase"
+    // }
+    // window.onPaddleClose = function () {
+    //   // setButtonLoading.off()
+    // }
+
+    Paddle.Checkout.open({
+      product: 44837,
+      email: user.email,
+      disableLogout: true,
+      passthrough: JSON.stringify(passthrough)
+      // closeCallback: "onPaddleClose",
+      // successCallback: "onPaddleSuccess"
+    })
+  }
+
   return (
     <>
+      <PaddleScript />
+
       <h1 className="text-6xl font-bold text-center text-primary mt-16 mb-8">
         Pricing
       </h1>
@@ -109,7 +147,10 @@ function Pricing() {
           </div>
 
           <div className="mt-8">
-            <button className="bg-primary hover:bg-gray-800 active:bg-primary px-3 py-2 rounded-lg w-full text-white">
+            <button
+              onClick={onUpgradeClick}
+              className="bg-primary hover:bg-gray-800 active:bg-primary px-3 py-2 rounded-lg w-full text-white"
+            >
               Get Started
             </button>
           </div>
@@ -117,6 +158,29 @@ function Pricing() {
       </div>
     </>
   )
+}
+
+export const getServerSideProps = async (ctx) => {
+  const supabase = createServerSupabaseClient(ctx)
+
+  const {
+    data: { session }
+  } = await supabase.auth.getSession()
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/signin",
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {
+      initialSession: session
+    }
+  }
 }
 
 export default Pricing
