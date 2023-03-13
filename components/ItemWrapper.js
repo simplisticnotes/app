@@ -32,7 +32,6 @@ function ItemWrapper({ children, href, className, onDelete }) {
             className="flex items-center flex-row gap-2 text-red-500 hover:bg-slate-200 p-2 rounded"
             onClick={(e) => {
               e.preventDefault()
-              console.log("removing")
               onDelete()
             }}
           >

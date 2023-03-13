@@ -7,6 +7,7 @@ import { deleteFolder } from "../../core/folders"
 import Spinner from "../Spinner"
 import { useModalContext } from "../../context/ModalContext"
 import { toast } from "react-hot-toast"
+import { refreshPage } from "../../utils"
 
 function DeleteItem() {
   const {
@@ -39,7 +40,7 @@ function DeleteItem() {
     toggleDeleteItemModal()
 
     toast.success("Deleted successfully!")
-    router.push(router.asPath)
+    refreshPage(router)
   }
 
   return (

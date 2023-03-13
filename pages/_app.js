@@ -4,6 +4,7 @@ import { SessionContextProvider } from "@supabase/auth-helpers-react"
 import { useState } from "react"
 import { ModalContextProvider } from "../context/ModalContext"
 import { Toaster } from "react-hot-toast"
+import { PricingContextProvider } from "../context/PricingContext"
 
 function MyApp({ Component, pageProps }) {
   const [supabase] = useState(() => createBrowserSupabaseClient())
@@ -14,10 +15,12 @@ function MyApp({ Component, pageProps }) {
       initialSession={pageProps.initialSession}
     >
       <ModalContextProvider>
-        <Component {...pageProps} />
-
-        <Toaster />
+        <PricingContextProvider paymentData={pageProps.paymentData}>
+          <Component {...pageProps} />
+        </PricingContextProvider>
       </ModalContextProvider>
+
+      <Toaster />
     </SessionContextProvider>
   )
 }

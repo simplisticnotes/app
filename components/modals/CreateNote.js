@@ -1,22 +1,29 @@
 import React, { useState } from "react"
-import { NOTE_TYPES } from "../../constants/notes"
+import { getNoteTypes, NOTE_TYPES } from "../../constants/notes"
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
 import { useRouter } from "next/router"
 import { createNote } from "../../core/notes"
 import Spinner from "../Spinner"
 import { useModalContext } from "../../context/ModalContext"
 import { toast } from "react-hot-toast"
+import { usePricingContext } from "../../context/PricingContext"
+import { refreshPage } from "../../utils"
 
 function CreateNote({ folderId }) {
   const { showCreateNoteModal, toggleCreateNoteModal } = useModalContext()
+
   const [name, setName] = useState("Untitled")
   const [type, setType] = useState(NOTE_TYPES[0])
   const [applyPassword, setApplyPassword] = useState(false)
   const [password, setPassword] = useState("")
+
+  const [loading, setLoading] = useState(false)
+
   const supabase = useSupabaseClient()
   const user = useUser()
   const router = useRouter()
-  const [loading, setLoading] = useState(false)
+
+  const pricingData = usePricingContext()
 
   const changeName = (e) => setName(e.target.value)
   const changeType = (e) => setType(e.target.value)
@@ -72,7 +79,7 @@ function CreateNote({ folderId }) {
     closeModal()
 
     toast.success("Note created successfully!")
-    router.push(router.asPath)
+    refreshPage(router)
   }
 
   return (
@@ -104,8 +111,8 @@ function CreateNote({ folderId }) {
             value={type}
             onChange={changeType}
           >
-            {NOTE_TYPES.map((noteType, i) => (
-              <option value={noteType} key={i}>
+            {getNoteTypes(pricingData.getUserPlan()).map((noteType, i) => (
+              <option value={noteType} key={noteType}>
                 {noteType}
               </option>
             ))}

@@ -8,9 +8,10 @@ import { getRecentNotes } from "../../core/notes"
 import { useModalContext } from "../../context/ModalContext"
 import { getRecentFolders } from "../../core/folders"
 import CreateNote from "../../components/modals/CreateNote"
+import { getUserPaymentData, getUserSession } from "../../core/users"
+import { useSession, useUser } from "@supabase/auth-helpers-react"
 
 function App({ notes, folders }) {
-  console.log(notes)
   const { toggleCreateNoteModal, toggleCreateFolderModal } = useModalContext()
 
   return (
@@ -47,9 +48,7 @@ function App({ notes, folders }) {
 export const getServerSideProps = async (ctx) => {
   const supabase = createServerSupabaseClient(ctx)
 
-  const {
-    data: { session }
-  } = await supabase.auth.getSession()
+  const session = await getUserSession(supabase)
 
   if (!session) {
     return {
@@ -60,6 +59,10 @@ export const getServerSideProps = async (ctx) => {
     }
   }
 
+  const { data: paymentData } = await getUserPaymentData(
+    supabase,
+    session.user.id
+  )
   const { data: notes, error: notesError } = await getRecentNotes(supabase)
   const { data: folders, error: foldersError } = await getRecentFolders(
     supabase
@@ -71,7 +74,8 @@ export const getServerSideProps = async (ctx) => {
     props: {
       initialSession: session,
       notes,
-      folders
+      folders,
+      paymentData
     }
   }
 }

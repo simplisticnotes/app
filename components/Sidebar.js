@@ -14,36 +14,6 @@ import PaddleScript from "./PaddleScript"
 function Sidebar() {
   const router = useRouter()
   const supabase = useSupabaseClient()
-  const user = useUser()
-
-  const onUpgradeClick = () => {
-    // if (!isLoggedIn) {
-    //   router.push("#login?pricing")
-    //   return
-    // }
-
-    // setButtonLoading.on()
-
-    const passthrough = {
-      userId: user.id
-    }
-
-    // window.onPaddleSuccess = function () {
-    //   window.location.href = "/purchase"
-    // }
-    // window.onPaddleClose = function () {
-    // setButtonLoading.off()
-    // }
-
-    Paddle.Checkout.open({
-      product: 44837,
-      email: user.email,
-      disableLogout: true,
-      passthrough: JSON.stringify(passthrough)
-      // closeCallback: "onPaddleClose",
-      // successCallback: "onPaddleSuccess"
-    })
-  }
 
   return (
     <>
@@ -75,11 +45,7 @@ function Sidebar() {
           </div>
 
           <div className="px-4">
-            <NavItem
-              Icon={ArrowLeftOnRectangleIcon}
-              button
-              onClick={onUpgradeClick}
-            >
+            <NavItem Icon={ArrowLeftOnRectangleIcon} href="/pricing">
               Upgrade
             </NavItem>
 
