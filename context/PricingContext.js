@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
+import { useUser } from "../node_modules/@supabase/auth-helpers-react/dist/index"
+import { useRouter } from "../node_modules/next/router"
 
 const PricingContext = createContext()
 
@@ -9,6 +11,9 @@ export const PricingContextProvider = ({
   paymentData: initialPaymentData
 }) => {
   const [paymentData, setPaymentData] = useState(initialPaymentData)
+
+  const router = useRouter()
+  const user = useUser()
 
   useEffect(() => {
     setPaymentData(initialPaymentData)
@@ -25,10 +30,39 @@ export const PricingContextProvider = ({
     return "FREE"
   }
 
+  const startCheckoutProcess = () => {
+    if (!user) {
+      router.push("/signin")
+      return
+    }
+
+    const passthrough = {
+      userId: user.id
+    }
+
+    window.onPaddleSuccess = function () {
+      router.push("/payment-success")
+    }
+
+    window.onPaddleClose = function () {
+      // TODO: DO SOMETHING
+    }
+
+    Paddle.Checkout.open({
+      product: 44837,
+      email: user.email,
+      disableLogout: true,
+      passthrough: JSON.stringify(passthrough),
+      closeCallback: "onPaddleClose",
+      successCallback: "onPaddleSuccess"
+    })
+  }
+
   const value = {
     paymentData,
     setPaymentData,
-    getUserPlan
+    getUserPlan,
+    startCheckoutProcess
   }
 
   return (

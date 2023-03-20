@@ -3,13 +3,16 @@ import { useModalContext } from "../../context/ModalContext"
 import ItemWrapper from "../ItemWrapper"
 
 function NoteItem({ note }) {
-  const { toggleDeleteItemModal } = useModalContext()
+  const { toggleDeleteItemModal, toggleNoteShareModal } = useModalContext()
 
   return (
     <ItemWrapper
       href={`/app/notes/${note.id}`}
       onDelete={() => {
         toggleDeleteItemModal(note.id, "Note")
+      }}
+      onShare={() => {
+        toggleNoteShareModal(note.id)
       }}
     >
       <Image src="/note-item.svg" width={50} height={50} alt="Note Name" />

@@ -9,7 +9,6 @@ import { useModalContext } from "../../context/ModalContext"
 import { getRecentFolders } from "../../core/folders"
 import CreateNote from "../../components/modals/CreateNote"
 import { getUserPaymentData, getUserSession } from "../../core/users"
-import { useSession, useUser } from "@supabase/auth-helpers-react"
 
 function App({ notes, folders }) {
   const { toggleCreateNoteModal, toggleCreateFolderModal } = useModalContext()

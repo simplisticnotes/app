@@ -1,9 +1,9 @@
 import Link from "next/link"
 import React from "react"
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline"
-import { TrashIcon } from "@heroicons/react/24/outline"
+import { TrashIcon, ShareIcon } from "@heroicons/react/24/outline"
 
-function ItemWrapper({ children, href, className, onDelete }) {
+function ItemWrapper({ children, href, className, onDelete, onShare }) {
   return (
     <Link
       href={href || "#"}
@@ -28,8 +28,20 @@ function ItemWrapper({ children, href, className, onDelete }) {
           tabIndex={0}
           className="dropdown-content menu p-2 shadow-lg border-2 border-primary bg-base-100 rounded w-32"
         >
+          {onShare && (
+            <li
+              className="flex items-center flex-row gap-2 text-primary hover:bg-slate-200 p-2 rounded"
+              onClick={(e) => {
+                e.preventDefault()
+                onShare()
+              }}
+            >
+              <ShareIcon className="w-4 p-0" /> Share
+            </li>
+          )}
+
           <li
-            className="flex items-center flex-row gap-2 text-red-500 hover:bg-slate-200 p-2 rounded"
+            className="flex items-center flex-row gap-2 text-primary hover:bg-slate-200 p-2 rounded"
             onClick={(e) => {
               e.preventDefault()
               onDelete()

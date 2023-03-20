@@ -7,13 +7,15 @@ import {
   TrashIcon,
   ArrowLeftOnRectangleIcon
 } from "@heroicons/react/24/outline"
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useRouter } from "next/router"
 import PaddleScript from "./PaddleScript"
+import { usePricingContext } from "../context/PricingContext"
 
 function Sidebar() {
   const router = useRouter()
   const supabase = useSupabaseClient()
+  const pricingData = usePricingContext()
 
   return (
     <>
@@ -45,9 +47,11 @@ function Sidebar() {
           </div>
 
           <div className="px-4">
-            <NavItem Icon={ArrowLeftOnRectangleIcon} href="/pricing">
-              Upgrade
-            </NavItem>
+            {pricingData.getUserPlan() === "FREE" && (
+              <NavItem Icon={ArrowLeftOnRectangleIcon} href="/pricing">
+                Upgrade
+              </NavItem>
+            )}
 
             <NavItem
               Icon={ArrowLeftOnRectangleIcon}

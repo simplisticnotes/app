@@ -10,10 +10,11 @@ import { usePricingContext } from "../../context/PricingContext"
 import { refreshPage } from "../../utils"
 
 function CreateNote({ folderId }) {
+  const pricingData = usePricingContext()
   const { showCreateNoteModal, toggleCreateNoteModal } = useModalContext()
 
   const [name, setName] = useState("Untitled")
-  const [type, setType] = useState(NOTE_TYPES[0])
+  const [type, setType] = useState(getNoteTypes(pricingData.getUserPlan())[0])
   const [applyPassword, setApplyPassword] = useState(false)
   const [password, setPassword] = useState("")
 
@@ -23,8 +24,6 @@ function CreateNote({ folderId }) {
   const user = useUser()
   const router = useRouter()
 
-  const pricingData = usePricingContext()
-
   const changeName = (e) => setName(e.target.value)
   const changeType = (e) => setType(e.target.value)
   const changeApplyPassword = () => setApplyPassword(!applyPassword)
@@ -32,7 +31,7 @@ function CreateNote({ folderId }) {
 
   const reset = () => {
     setName("Untitled")
-    setType(NOTE_TYPES[0])
+    setType(getNoteTypes(pricingData.getUserPlan())[0])
     setApplyPassword(false)
     setPassword("")
     setLoading(false)

@@ -1,26 +1,26 @@
 export const PRICING_OPTIONS = [
   {
     title: "End to End Encryption",
-    plans: ["Free", "Pro"]
+    plans: ["FREE", "PRO"]
   },
   {
     title: "Plan Text Notes",
-    plans: ["Free", "Pro"]
+    plans: ["FREE", "PRO"]
   },
   {
     title: "Password Protected Notes",
-    plans: ["Free", "Pro"]
+    plans: ["FREE", "PRO"]
   },
   {
     title: "Shareable Notes",
-    plans: ["Pro"]
+    plans: ["PRO"]
   },
   {
     title: "All Types of Notes (Plan Text, Rich Text, Todos, etc.)",
-    plans: ["Pro"]
+    plans: ["PRO"]
   },
   {
-    title: "Folders and Sub Folders",
-    plans: ["Pro"]
+    title: "Organize Notes in Folders",
+    plans: ["PRO"]
   }
 ]

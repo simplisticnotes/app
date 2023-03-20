@@ -5,6 +5,7 @@ import { createFolder } from "../../core/folders"
 import Spinner from "../Spinner"
 import { useModalContext } from "../../context/ModalContext"
 import { toast } from "react-hot-toast"
+import { refreshPage } from "../../utils"
 
 function CreateFolder() {
   const { showCreateFolderModal, toggleCreateFolderModal } = useModalContext()
@@ -47,7 +48,7 @@ function CreateFolder() {
     closeModal()
 
     toast.success("Folder created successfully!")
-    router.push(router.asPath)
+    refreshPage(router)
   }
 
   return (

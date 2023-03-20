@@ -1,38 +1,23 @@
 import { PRICING_OPTIONS } from "../constants/pricing"
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid"
+import { usePricingContext } from "../context/PricingContext"
+import { useUser } from "@supabase/auth-helpers-react"
 
-function PricingItem({
-  plan,
-  label,
-  pricingLabel,
-  user,
-  paymentData,
-  onUpgrade
-}) {
-  console.log(paymentData)
+function PricingItem({ plan, label, pricingLabel, onUpgrade }) {
+  const user = useUser()
 
   let buttonText = "Get Started"
+  const pricingData = usePricingContext()
 
   const isCurrentPlan =
-    (user &&
-      plan === "FREE" &&
-      (!paymentData.subscriptionStatus ||
-        paymentData.subscriptionStatus === "deleted")) ||
-    (user &&
-      plan === "PRO" &&
-      (paymentData.subscriptionStatus === "active" ||
-        paymentData.subscriptionStatus === "trialing"))
+    (user && plan === "FREE" && pricingData.getUserPlan() === "FREE") ||
+    (user && plan === "PRO" && pricingData.getUserPlan() === "PRO")
 
   if (isCurrentPlan) {
     buttonText = "Current Plan"
   }
 
-  if (
-    user &&
-    plan === "PRO" &&
-    (!paymentData.subscriptionStatus ||
-      paymentData.subscriptionStatus === "deleted")
-  ) {
+  if (user && plan === "PRO" && pricingData.getUserPlan() === "FREE") {
     buttonText = "Upgrade"
   }
 

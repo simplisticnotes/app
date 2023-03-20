@@ -1,66 +1,37 @@
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs"
 import { useUser } from "@supabase/auth-helpers-react"
-import { useRouter } from "next/router"
-import React from "react"
 import PaddleScript from "../components/PaddleScript"
 import PricingItem from "../components/PricingItem"
+import { usePricingContext } from "../context/PricingContext"
 import { getUserPaymentData, getUserSession } from "../core/users"
+import Link from "next/link"
 
-function Pricing({ paymentData }) {
+function Pricing() {
   const user = useUser()
-  const router = useRouter()
-
-  console.log("PAYMENT DATA", paymentData)
-
-  const showCheckoutModal = () => {
-    if (!user) {
-      router.push("/signin")
-      return
-    }
-
-    // setButtonLoading.on()
-
-    const passthrough = {
-      userId: user.id
-    }
-
-    window.onPaddleSuccess = function () {
-      router.push("/payment-success")
-    }
-
-    window.onPaddleClose = function () {
-      // TODO: DO SOMETHING
-    }
-
-    Paddle.Checkout.open({
-      product: 44837,
-      email: user.email,
-      disableLogout: true,
-      passthrough: JSON.stringify(passthrough),
-      closeCallback: "onPaddleClose",
-      successCallback: "onPaddleSuccess"
-    })
-  }
+  const pricingData = usePricingContext()
 
   return (
-    <>
+    <div className="px-7">
       <PaddleScript />
+
+      <Link href="/" className="mt-5 flex items-center justify-center">
+        <img className="w-5" src="/logo.svg" alt="Simplistic Notes Logo" />
+        <p className="font-bold text-xl">
+          <span className="hidden">S</span>implistic Notes
+        </p>
+      </Link>
 
       <h1 className="text-6xl font-bold text-center text-primary mt-16 mb-8">
         Pricing
       </h1>
 
       <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto">
-        {user &&
-        (paymentData.subscriptionStatus === "active" ||
-          paymentData.subscriptionStatus === "trialing") ? null : (
+        {user && pricingData.getUserPlan() === "PRO" ? null : (
           <PricingItem
             plan="FREE"
             label="STARTER"
             pricingLabel="FREE"
-            user={user}
-            paymentData={paymentData}
-            onUpgrade={showCheckoutModal}
+            onUpgrade={pricingData.startCheckoutProcess}
           />
         )}
 
@@ -68,12 +39,19 @@ function Pricing({ paymentData }) {
           plan="PRO"
           label="PRO"
           pricingLabel="$5 /month"
-          user={user}
-          paymentData={paymentData}
-          onUpgrade={showCheckoutModal}
+          onUpgrade={pricingData.startCheckoutProcess}
         />
       </div>
-    </>
+
+      {user && (
+        <Link
+          href="/app"
+          className="btn btn-primary text-center mt-10 mb-10 relative left-1/2 -translate-x-1/2"
+        >
+          Go to the dashboard
+        </Link>
+      )}
+    </div>
   )
 }
 
@@ -81,14 +59,17 @@ export const getServerSideProps = async (ctx) => {
   const supabase = createServerSupabaseClient(ctx)
 
   const session = await getUserSession(supabase)
-  const { data } = await getUserPaymentData(supabase, session?.user?.id)
+  const { data: paymentData } = await getUserPaymentData(
+    supabase,
+    session?.user?.id
+  )
 
   // TODO: ERROR HANDLING
 
   return {
     props: {
       initialSession: session,
-      paymentData: data
+      paymentData
     }
   }
 }

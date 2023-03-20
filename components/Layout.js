@@ -5,6 +5,7 @@ import Header from "./Header"
 import CreateFolder from "./modals/CreateFolder"
 import CreateNote from "./modals/CreateNote"
 import DeleteItem from "./modals/DeleteItem"
+import ShareNote from "./modals/ShareNote"
 import Sidebar from "./Sidebar"
 
 function Layout({ children, heading, updateName }) {
@@ -22,6 +23,7 @@ function Layout({ children, heading, updateName }) {
 
       <CreateFolder />
       <DeleteItem />
+      <ShareNote />
     </div>
   )
 }

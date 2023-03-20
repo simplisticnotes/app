@@ -10,6 +10,7 @@ import RichText from "../../../components/noteTypes/RichText"
 import { useModalContext } from "../../../context/ModalContext"
 import { decrypt } from "../../../core/encryption"
 import { getNoteById } from "../../../core/notes"
+import { getUserSession } from "../../../core/users"
 
 const showEditor = (note, text, setText) => {
   return note.type == "Plain Text" ? (
@@ -28,7 +29,6 @@ function Note({ note: initialNote }) {
 
   const decryptNote = async () => {
     const res = await axios.post("/api/decrypt", { text: note.text })
-
     setText(res.data.decryptedText)
   }
 
@@ -76,9 +76,7 @@ function Note({ note: initialNote }) {
 export const getServerSideProps = async (ctx) => {
   const supabase = createServerSupabaseClient(ctx)
 
-  const {
-    data: { session }
-  } = await supabase.auth.getSession()
+  const session = await getUserSession(supabase)
 
   if (!session) {
     return {
@@ -89,11 +87,11 @@ export const getServerSideProps = async (ctx) => {
     }
   }
 
-  const { data, error } = await getNoteById(supabase, ctx.params.id)
+  const { data: note, error } = await getNoteById(supabase, ctx.params.id)
 
   // TODO: Handle error
 
-  if (!data) {
+  if (!note) {
     return {
       redirect: {
         destination: "/app/notes",
@@ -105,7 +103,7 @@ export const getServerSideProps = async (ctx) => {
   return {
     props: {
       initialSession: session,
-      note: data
+      note
     }
   }
 }

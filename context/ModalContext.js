@@ -12,16 +12,17 @@ export const ModalContextProvider = ({ children }) => {
   const [showUpdateFolderNameModal, setShowUpdateFolderNameModal] =
     useState(false)
   const [showNotePasswordModal, setShowNotePasswordModal] = useState(false)
+  const [showNoteShareModal, setShowNoteShareModal] = useState(false)
 
   const [deleteItemId, setDeleteItemId] = useState(null)
   const [deleteType, setDeleteType] = useState(null)
+  const [shareNoteId, setShareNoteId] = useState(null)
 
   const toggleCreateNoteModal = () => {
     setShowCreateNoteModal((prev) => !prev)
   }
 
   const toggleDeleteItemModal = (itemId, type) => {
-    console.log("TOGGLE DELETE ITEM MODAL")
     setShowDeleteItemModal((prev) => !prev)
     setDeleteItemId(itemId)
     setDeleteType(type)
@@ -43,6 +44,11 @@ export const ModalContextProvider = ({ children }) => {
     setShowNotePasswordModal(!showNotePasswordModal)
   }
 
+  const toggleNoteShareModal = (noteId) => {
+    setShareNoteId(noteId)
+    setShowNoteShareModal(!showNoteShareModal)
+  }
+
   const value = {
     showCreateNoteModal,
     toggleCreateNoteModal,
@@ -57,7 +63,10 @@ export const ModalContextProvider = ({ children }) => {
     showNotePasswordModal,
     toggleNotePasswordModal,
     showUpdateFolderNameModal,
-    toggleUpdateFolderNameModal
+    toggleUpdateFolderNameModal,
+    showNoteShareModal,
+    toggleNoteShareModal,
+    shareNoteId
   }
 
   return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
