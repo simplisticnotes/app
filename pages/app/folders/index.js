@@ -7,6 +7,7 @@ import { getFolders } from "../../../core/folders"
 import { useModalContext } from "../../../context/ModalContext"
 import CreateFolder from "../../../components/modals/CreateFolder"
 import CreateItem from "../../../components/items/CreateItem"
+import { getUserPaymentData, getUserSession } from "../../../core/users"
 
 function Folders({ folders }) {
   const { toggleCreateFolderModal } = useModalContext()
@@ -37,9 +38,7 @@ function Folders({ folders }) {
 export const getServerSideProps = async (ctx) => {
   const supabase = createServerSupabaseClient(ctx)
 
-  const {
-    data: { session }
-  } = await supabase.auth.getSession()
+  const session = await getUserSession(supabase)
 
   if (!session) {
     return {
@@ -50,6 +49,11 @@ export const getServerSideProps = async (ctx) => {
     }
   }
 
+  const { data: paymentData } = await getUserPaymentData(
+    supabase,
+    session.user.id
+  )
+
   const { data, error } = await getFolders(supabase)
 
   // TODO: Handle error
@@ -57,7 +61,8 @@ export const getServerSideProps = async (ctx) => {
   return {
     props: {
       initialSession: session,
-      folders: data
+      folders: data,
+      paymentData
     }
   }
 }

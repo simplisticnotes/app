@@ -10,7 +10,7 @@ import RichText from "../../../components/noteTypes/RichText"
 import { useModalContext } from "../../../context/ModalContext"
 import { decrypt } from "../../../core/encryption"
 import { getNoteById } from "../../../core/notes"
-import { getUserSession } from "../../../core/users"
+import { getUserPaymentData, getUserSession } from "../../../core/users"
 
 const showEditor = (note, text, setText) => {
   return note.type == "Plain Text" ? (
@@ -87,6 +87,11 @@ export const getServerSideProps = async (ctx) => {
     }
   }
 
+  const { data: paymentData } = await getUserPaymentData(
+    supabase,
+    session.user.id
+  )
+
   const { data: note, error } = await getNoteById(supabase, ctx.params.id)
 
   // TODO: Handle error
@@ -103,7 +108,8 @@ export const getServerSideProps = async (ctx) => {
   return {
     props: {
       initialSession: session,
-      note
+      note,
+      paymentData
     }
   }
 }

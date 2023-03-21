@@ -38,5 +38,11 @@ export const updateNoteName = async (supabase, noteId, name) => {
 }
 
 export const deleteNote = async (supabase, id) => {
+  const { data: note } = await getNoteById(supabase, id)
+  await supabase.from("trash").insert(note)
   return supabase.from("notes").delete().eq("id", id)
+}
+
+export const getNotesFromTrash = async (supabase) => {
+  return supabase.from("trash").select("*")
 }

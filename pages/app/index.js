@@ -62,6 +62,7 @@ export const getServerSideProps = async (ctx) => {
     supabase,
     session.user.id
   )
+
   const { data: notes, error: notesError } = await getRecentNotes(supabase)
   const { data: folders, error: foldersError } = await getRecentFolders(
     supabase

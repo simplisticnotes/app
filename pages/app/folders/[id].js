@@ -14,6 +14,7 @@ import { useModalContext } from "../../../context/ModalContext"
 import { decrypt } from "../../../core/encryption"
 import { getFolderById } from "../../../core/folders"
 import { getNotes, getNotesByFolderId } from "../../../core/notes"
+import { getUserPaymentData, getUserSession } from "../../../core/users"
 
 function Folder({ folder: initialFolder, notes }) {
   const [folder, setFolder] = useState(initialFolder)
@@ -56,9 +57,7 @@ function Folder({ folder: initialFolder, notes }) {
 export const getServerSideProps = async (ctx) => {
   const supabase = createServerSupabaseClient(ctx)
 
-  const {
-    data: { session }
-  } = await supabase.auth.getSession()
+  const session = await getUserSession(supabase)
 
   if (!session) {
     return {
@@ -68,6 +67,11 @@ export const getServerSideProps = async (ctx) => {
       }
     }
   }
+
+  const { data: paymentData } = await getUserPaymentData(
+    supabase,
+    session.user.id
+  )
 
   const { data: folderData, error: folderError } = await getFolderById(
     supabase,
@@ -96,7 +100,8 @@ export const getServerSideProps = async (ctx) => {
     props: {
       initialSession: session,
       folder: folderData,
-      notes: notesData
+      notes: notesData,
+      paymentData
     }
   }
 }
