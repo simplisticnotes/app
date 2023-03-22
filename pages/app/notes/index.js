@@ -7,7 +7,7 @@ import Breadcrumb from "../../../components/Breadcrumb"
 import { useModalContext } from "../../../context/ModalContext"
 import CreateItem from "../../../components/items/CreateItem"
 import CreateNote from "../../../components/modals/CreateNote"
-import { getUserSession } from "../../../core/users"
+import { getUserPaymentData, getUserSession } from "../../../core/users"
 
 function Notes({ notes }) {
   const { toggleCreateNoteModal } = useModalContext()

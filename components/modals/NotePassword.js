@@ -55,10 +55,7 @@ function NotePassword({ notePassword, showNote }) {
         </div>
 
         <div className="modal-action">
-          <button
-            onClick={validateNotePassword}
-            className="btn bg-primary hover:bg-primary"
-          >
+          <button onClick={validateNotePassword} className="btn btn-primary">
             Confirm
           </button>
         </div>

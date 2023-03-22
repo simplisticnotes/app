@@ -46,7 +46,7 @@ function ShareNote() {
 
         <div className="modal-action">
           <button
-            className="btn bg-white text-black hover:bg-white"
+            className="btn btn-outline"
             onClick={() => toggleNoteShareModal()}
           >
             Close

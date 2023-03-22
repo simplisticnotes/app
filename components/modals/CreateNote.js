@@ -144,15 +144,12 @@ function CreateNote({ folderId }) {
         )}
 
         <div className="modal-action">
-          <button
-            className="btn bg-white text-black hover:bg-white"
-            onClick={closeModal}
-          >
+          <button className="btn btn-outline" onClick={closeModal}>
             Cancel
           </button>
           <button
             onClick={createNoteHandler}
-            className="btn bg-primary hover:bg-primary"
+            className="btn btn-primary"
             disabled={loading}
           >
             Confirm

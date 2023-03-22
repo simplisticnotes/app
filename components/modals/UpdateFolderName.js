@@ -61,14 +61,14 @@ function UpdateFolderName({ folderId, initialName, setFolder }) {
 
         <div className="modal-action">
           <button
-            className="btn bg-white text-black hover:bg-white"
+            className="btn btn-outline"
             onClick={toggleUpdateFolderNameModal}
           >
             Cancel
           </button>
           <button
             onClick={updateFolderHandler}
-            className="btn bg-primary hover:bg-primary gap-2"
+            className="btn btn-primary gap-2"
             disabled={loading}
           >
             Update

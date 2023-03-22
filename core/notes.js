@@ -46,3 +46,27 @@ export const deleteNote = async (supabase, id) => {
 export const getNotesFromTrash = async (supabase) => {
   return supabase.from("trash").select("*")
 }
+
+export const restoreNote = async (supabase, id) => {
+  const { data: note } = await supabase
+    .from("trash")
+    .select("*")
+    .eq("id", id)
+    .single()
+  await supabase.from("notes").insert(note)
+  return supabase.from("trash").delete().eq("id", id)
+}
+
+export const deleteNoteFromTrash = async (supabase, id) => {
+  return supabase.from("trash").delete().eq("id", id)
+}
+
+export const clearTrash = async (supabase) => {
+  return supabase.from("trash").delete().neq("type", "")
+}
+
+export const restoreTrash = async (supabase) => {
+  const { data: notes } = await supabase.from("trash").select("*")
+  await supabase.from("notes").insert(notes)
+  return supabase.from("trash").delete().neq("type", "")
+}
