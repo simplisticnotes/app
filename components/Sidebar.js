@@ -5,11 +5,12 @@ import {
   BookOpenIcon,
   FolderIcon,
   TrashIcon,
-  ArrowLeftOnRectangleIcon
+  ArrowLeftOnRectangleIcon,
+  UserCircleIcon,
+  StarIcon
 } from "@heroicons/react/24/outline"
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useRouter } from "next/router"
-import PaddleScript from "./PaddleScript"
 import { usePricingContext } from "../context/PricingContext"
 
 function Sidebar() {
@@ -19,8 +20,6 @@ function Sidebar() {
 
   return (
     <>
-      <PaddleScript />
-
       <div className="w-48 min-h-screen hidden sm:block">
         <div className="flex flex-col sticky top-0 left-0 right-0 bottom-0 w-48 min-h-screen bg-secondary">
           <div className="border-b-2 pt-2 pb-3 border-white">
@@ -48,10 +47,14 @@ function Sidebar() {
 
           <div className="px-4">
             {pricingData.getUserPlan() === "FREE" && (
-              <NavItem Icon={ArrowLeftOnRectangleIcon} href="/pricing">
+              <NavItem Icon={StarIcon} href="/pricing">
                 Upgrade
               </NavItem>
             )}
+
+            <NavItem Icon={UserCircleIcon} href="/app/profile">
+              Profile
+            </NavItem>
 
             <NavItem
               Icon={ArrowLeftOnRectangleIcon}

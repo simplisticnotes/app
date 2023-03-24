@@ -15,6 +15,8 @@ export const ModalContextProvider = ({ children }) => {
   const [showNoteShareModal, setShowNoteShareModal] = useState(false)
   const [showRestoreNoteModal, setShowRestoreNoteModal] = useState(false)
   const [showDeleteTrashModal, setShowDeleteTrashModal] = useState(false)
+  const [showCancelSubscriptionModal, setShowCancelSubscriptionModal] =
+    useState(false)
 
   const [deleteItemId, setDeleteItemId] = useState(null)
   const [deleteType, setDeleteType] = useState(null)
@@ -63,6 +65,10 @@ export const ModalContextProvider = ({ children }) => {
     setShowDeleteTrashModal(!showDeleteTrashModal)
   }
 
+  const toggleCancelSubscriptionModal = () => {
+    setShowCancelSubscriptionModal(!showCancelSubscriptionModal)
+  }
+
   const value = {
     showCreateNoteModal,
     toggleCreateNoteModal,
@@ -86,7 +92,9 @@ export const ModalContextProvider = ({ children }) => {
     restoreNoteId,
     showDeleteTrashModal,
     toggleDeleteTrashModal,
-    deleteTrashId
+    deleteTrashId,
+    showCancelSubscriptionModal,
+    toggleCancelSubscriptionModal
   }
 
   return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>

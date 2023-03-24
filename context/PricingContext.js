@@ -1,6 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import { useUser } from "../node_modules/@supabase/auth-helpers-react/dist/index"
-import { useRouter } from "../node_modules/next/router"
+import { toast } from "react-hot-toast"
+import { useUser } from "@supabase/auth-helpers-react"
+import { useRouter } from "next/router"
+import { refreshPage } from "../utils"
+import { useModalContext } from "./ModalContext"
 
 const PricingContext = createContext()
 
@@ -14,6 +17,7 @@ export const PricingContextProvider = ({
 
   const router = useRouter()
   const user = useUser()
+  const { toggleCancelSubscriptionModal } = useModalContext()
 
   useEffect(() => {
     setPaymentData(initialPaymentData)
@@ -58,11 +62,48 @@ export const PricingContextProvider = ({
     })
   }
 
+  const updatePaymentMethod = () => {
+    window.onPaddleSuccess = function () {
+      refreshPage(router)
+      toast.success("Your payment method is updated successfully")
+      // authStore.fetchUserData()
+    }
+    window.onPaddleClose = function () {
+      // TODO: DO SOMETHING
+    }
+
+    Paddle.Checkout.open({
+      override: paymentData.subscriptionUpdateUrl,
+      successCallback: "onPaddleSuccess",
+      closeCallback: "onPaddleClose"
+    })
+  }
+
+  const cancelSubscription = () => {
+    window.onPaddleSuccess = function () {
+      refreshPage(router)
+      toast.success("Your subscription is cancelled successfully")
+      toggleCancelSubscriptionModal()
+      // authStore.fetchUserData()
+    }
+    window.onPaddleClose = function () {
+      // TODO: DO SOMETHING
+    }
+
+    Paddle.Checkout.open({
+      override: paymentData.subscriptionCancelUrl,
+      successCallback: "onPaddleSuccess",
+      closeCallback: "onPaddleClose"
+    })
+  }
+
   const value = {
     paymentData,
     setPaymentData,
     getUserPlan,
-    startCheckoutProcess
+    startCheckoutProcess,
+    updatePaymentMethod,
+    cancelSubscription
   }
 
   return (

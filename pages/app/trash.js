@@ -17,7 +17,7 @@ import { refreshPage } from "../../utils"
 import { TrashIcon, ArrowUpOnSquareIcon } from "@heroicons/react/24/outline"
 import Spinner from "../../components/Spinner"
 
-function Notes({ notes }) {
+function Trash({ notes }) {
   const router = useRouter()
   const supabase = useSupabaseClient()
   const [clearTrashLoading, setClearTrashLoading] = useState(false)
@@ -148,4 +148,4 @@ export const getServerSideProps = async (ctx) => {
   }
 }
 
-export default Notes
+export default Trash

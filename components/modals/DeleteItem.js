@@ -52,7 +52,7 @@ function DeleteItem() {
     >
       <div className="modal-box">
         <h3 className="mb-6 font-semibold text-2xl">
-          Do you want to delete this note?
+          Do you want to delete this {deleteType}?
         </h3>
 
         <div className="modal-action">

@@ -15,3 +15,14 @@ export const getUserSession = async (supabase) => {
 
   return session
 }
+
+export const updateUser = async (supabase, metadata) => {
+  const { data, error } = await supabase.auth.updateUser({
+    password: undefined,
+    data: metadata
+  })
+
+  await supabase.auth.refreshSession()
+
+  return data
+}
