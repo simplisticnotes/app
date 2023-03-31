@@ -8,6 +8,8 @@ import DeleteTrash from "./modals/DeleteTrash"
 import RestoreNote from "./modals/RestoreNote"
 import ShareNote from "./modals/ShareNote"
 import Sidebar from "./Sidebar"
+import SpeedDial from "./SpeedDial"
+import BottomNav from "./BottomNav"
 
 function Layout({ children, heading, updateName }) {
   return (
@@ -27,6 +29,9 @@ function Layout({ children, heading, updateName }) {
       <ShareNote />
       <RestoreNote />
       <DeleteTrash />
+
+      {/* <SpeedDial /> */}
+      <BottomNav />
     </div>
   )
 }

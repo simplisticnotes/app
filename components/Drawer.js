@@ -1,13 +1,22 @@
+import { useRouter } from "next/router"
 import NavItem from "./items/NavItem"
 import {
   HomeIcon,
   BookOpenIcon,
   FolderIcon,
   TrashIcon,
-  ArrowLeftOnRectangleIcon
+  ArrowLeftOnRectangleIcon,
+  StarIcon,
+  UserCircleIcon
 } from "@heroicons/react/24/outline"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
+import { usePricingContext } from "../context/PricingContext"
 
 function Drawer({ children }) {
+  const router = useRouter()
+  const supabase = useSupabaseClient()
+  const pricingData = usePricingContext()
+
   return (
     <div className="drawer">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -37,16 +46,27 @@ function Drawer({ children }) {
             </NavItem>
           </div>
 
-          <NavItem
-            Icon={ArrowLeftOnRectangleIcon}
-            button
-            onClick={async () => {
-              await supabase.auth.signOut()
-              router.push("/signin")
-            }}
-          >
-            Logout
-          </NavItem>
+          <div className="">
+            {pricingData.getUserPlan() === "FREE" && (
+              <NavItem Icon={StarIcon} href="/pricing">
+                Upgrade
+              </NavItem>
+            )}
+
+            <NavItem Icon={UserCircleIcon} href="/app/profile">
+              Profile
+            </NavItem>
+            <NavItem
+              Icon={ArrowLeftOnRectangleIcon}
+              button
+              onClick={async () => {
+                await supabase.auth.signOut()
+                router.push("/signin")
+              }}
+            >
+              Logout
+            </NavItem>
+          </div>
         </div>
       </div>
     </div>
