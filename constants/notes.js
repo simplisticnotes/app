@@ -7,6 +7,11 @@ export const NOTE_TYPES = [
   {
     title: "Rich Text",
     plans: ["PRO"]
+  },
+
+  {
+    title: "Todo",
+    plans: ["PRO"]
   }
 ]
 

@@ -13,6 +13,9 @@ module.exports = {
       },
       screens: {
         xs: "475px"
+      },
+      container: {
+        center: true
       }
     }
   },

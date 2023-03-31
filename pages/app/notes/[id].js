@@ -7,6 +7,7 @@ import NotePassword from "../../../components/modals/NotePassword"
 import UpdateNoteName from "../../../components/modals/UpdateNoteName"
 import PlainText from "../../../components/noteTypes/PlainText"
 import RichText from "../../../components/noteTypes/RichText"
+import Todos from "../../../components/noteTypes/Todos"
 import { useModalContext } from "../../../context/ModalContext"
 import { decrypt } from "../../../core/encryption"
 import { getNoteById } from "../../../core/notes"
@@ -17,6 +18,8 @@ const showEditor = (note, text, setText) => {
     <PlainText value={text} onChange={setText} noteId={note.id} />
   ) : note.type == "Rich Text" ? (
     <RichText value={text} onChange={setText} noteId={note.id} />
+  ) : note.type === "Todo" ? (
+    <Todos noteId={note.id} todos={note.todos} />
   ) : null
 }
 
@@ -43,7 +46,7 @@ function Note({ note: initialNote }) {
   }, [])
 
   useEffect(() => {
-    decryptNote()
+    if (note.type === "Plain Text" || note.type === "Rich Text") decryptNote()
   }, [])
 
   return (

@@ -5,6 +5,8 @@ import {
   ShareIcon,
   ArrowUpOnSquareIcon
 } from "@heroicons/react/24/outline"
+import Dropdown from "./Dropdown"
+import DropdownItem from "./Dropdown/DropdownItem"
 
 function ItemWrapper({
   children,
@@ -16,73 +18,48 @@ function ItemWrapper({
   onRestore,
   onDeleteTrash
 }) {
+  const dropdownItemClickHandler = (doSomething) => {
+    return (e) => {
+      e.preventDefault()
+      doSomething()
+    }
+  }
+
   const content = (
     <>
-      <div className="dropdown absolute top-0 right-2">
-        <label
-          tabIndex={0}
-          className="cursor-pointer"
-          onClick={(e) => {
-            // avoid the above link from opening
-            e.preventDefault()
-          }}
-        >
-          <EllipsisHorizontalIcon className="w-6 hover:bg-slate-200 rounded-full" />
-        </label>
+      <Dropdown className="absolute top-0 right-2">
+        {onShare && (
+          <DropdownItem
+            icon={ShareIcon}
+            label="Share"
+            onClick={dropdownItemClickHandler(onShare)}
+          />
+        )}
 
-        <ul
-          tabIndex={0}
-          className="dropdown-content menu p-2 shadow-lg border-2 border-primary bg-base-100 rounded w-32"
-        >
-          {onShare && (
-            <li
-              className="flex items-center flex-row gap-2 text-primary hover:bg-slate-200 p-2 rounded"
-              onClick={(e) => {
-                e.preventDefault()
-                onShare()
-              }}
-            >
-              <ShareIcon className="w-4 p-0" /> Share
-            </li>
-          )}
+        {onDelete && (
+          <DropdownItem
+            icon={TrashIcon}
+            label="Delete"
+            onClick={dropdownItemClickHandler(onDelete)}
+          />
+        )}
 
-          {onDelete && (
-            <li
-              className="flex items-center flex-row gap-2 text-primary hover:bg-slate-200 p-2 rounded"
-              onClick={(e) => {
-                e.preventDefault()
-                onDelete()
-              }}
-            >
-              <TrashIcon className="w-4 p-0" /> Delete
-            </li>
-          )}
+        {onRestore && (
+          <DropdownItem
+            icon={ArrowUpOnSquareIcon}
+            label="Restore"
+            onClick={dropdownItemClickHandler(onRestore)}
+          />
+        )}
 
-          {onRestore && (
-            <li
-              className="flex items-center flex-row gap-2 text-primary hover:bg-slate-200 p-2 rounded"
-              onClick={(e) => {
-                e.preventDefault()
-                onRestore()
-              }}
-            >
-              <ArrowUpOnSquareIcon className="w-4 p-0" /> Restore
-            </li>
-          )}
-
-          {onDeleteTrash && (
-            <li
-              className="flex items-center flex-row gap-2 text-primary hover:bg-slate-200 p-2 rounded"
-              onClick={(e) => {
-                e.preventDefault()
-                onDeleteTrash()
-              }}
-            >
-              <TrashIcon className="w-4 p-0" /> Delete
-            </li>
-          )}
-        </ul>
-      </div>
+        {onDeleteTrash && (
+          <DropdownItem
+            icon={TrashIcon}
+            label="Delete"
+            onClick={dropdownItemClickHandler(onDeleteTrash)}
+          />
+        )}
+      </Dropdown>
 
       {children}
     </>

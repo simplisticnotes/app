@@ -70,3 +70,7 @@ export const restoreTrash = async (supabase) => {
   await supabase.from("notes").insert(notes)
   return supabase.from("trash").delete().neq("type", "")
 }
+
+export const updateTodoNote = async (supabase, noteId, todos) => {
+  return supabase.from("notes").update({ todos }).eq("id", noteId)
+}

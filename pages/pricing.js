@@ -5,6 +5,7 @@ import PricingItem from "../components/PricingItem"
 import { usePricingContext } from "../context/PricingContext"
 import { getUserPaymentData, getUserSession } from "../core/users"
 import Link from "next/link"
+import Logo from "../components/Logo"
 
 function Pricing() {
   const user = useUser()
@@ -14,12 +15,7 @@ function Pricing() {
     <div className="px-7">
       <PaddleScript />
 
-      <Link href="/" className="mt-5 flex items-center justify-center">
-        <img className="w-5" src="/logo.svg" alt="Simplistic Notes Logo" />
-        <p className="font-bold text-xl">
-          <span className="hidden">S</span>implistic Notes
-        </p>
-      </Link>
+      <Logo className="mt-5" />
 
       <h1 className="text-6xl font-bold text-center text-primary mt-16 mb-8">
         Pricing
