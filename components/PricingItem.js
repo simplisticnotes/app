@@ -49,7 +49,7 @@ function PricingItem({ plan, label, pricingLabel, onUpgrade }) {
       <div className="mt-8">
         <button
           disabled={isCurrentPlan}
-          onClick={onUpgrade}
+          onClick={pricingData.startCheckoutProcess}
           className={`${
             isCurrentPlan
               ? "bg-gray-500"

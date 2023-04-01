@@ -20,7 +20,7 @@ const Feature = ({ opposite, title, description, image }) => {
           opposite ? "justify-start" : "justify-end"
         }`}
       >
-        <Image src={image} width={500} height={500} />
+        <Image src={image} alt={title} width={500} height={500} />
       </div>
     </section>
   )

@@ -23,20 +23,10 @@ function Pricing() {
 
       <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto">
         {user && pricingData.getUserPlan() === "PRO" ? null : (
-          <PricingItem
-            plan="FREE"
-            label="STARTER"
-            pricingLabel="FREE"
-            onUpgrade={pricingData.startCheckoutProcess}
-          />
+          <PricingItem plan="FREE" label="STARTER" pricingLabel="FREE" />
         )}
 
-        <PricingItem
-          plan="PRO"
-          label="PRO"
-          pricingLabel="$5 /month"
-          onUpgrade={pricingData.startCheckoutProcess}
-        />
+        <PricingItem plan="PRO" label="PRO" pricingLabel="$5 /month" />
       </div>
 
       {user && (
