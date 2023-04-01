@@ -1,29 +1,27 @@
 import React from "react"
 import Logo from "../Logo"
+import Link from "next/link"
 
 function Navbar() {
   return (
-    <header className="text-gray-600">
-      <div className="container max-w-7xl flex flex-wrap flex-col md:flex-row items-center pt-4">
-        <Logo imageSize="w-8" textSize="text-2xl" />
+    <header className="">
+      <div className="container max-w-6xl flex items-center justify-between pt-4">
+        <Logo imageSize="w-5 sm:w-8" textSize="text-xl sm:text-2xl" />
 
-        <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center justify-center text-xl">
+        <nav className="hidden sm:flex items-center text-xl">
           <a className="mr-5 text-black" href="#">
             Features
           </a>
           <a className="mr-5 text-black" href="#">
             Pricing
           </a>
-          <a className="mr-5 text-black" href="#">
-            Third Link
-          </a>
-          <a className="mr-5 text-black" href="#">
-            Fourth Link
-          </a>
         </nav>
-        <button className="btn btn-primary btn-outline btn-lg">
+        <Link
+          href="/signin"
+          className="btn btn-primary btn-outline btn-sm sm:btn-lg"
+        >
           Get Started
-        </button>
+        </Link>
       </div>
     </header>
   )
