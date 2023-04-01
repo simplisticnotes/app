@@ -29,8 +29,6 @@ function Notes({ notes }) {
           <CreateItem onClick={toggleCreateNoteModal} />
         </section>
       </section>
-
-      <CreateNote />
     </Layout>
   )
 }

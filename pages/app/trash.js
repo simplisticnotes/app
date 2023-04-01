@@ -16,6 +16,7 @@ import { getUserPaymentData, getUserSession } from "../../core/users"
 import { refreshPage } from "../../utils"
 import { TrashIcon, ArrowUpOnSquareIcon } from "@heroicons/react/24/outline"
 import Spinner from "../../components/Spinner"
+import CreateNote from "../../components/modals/CreateNote"
 
 function Trash({ notes }) {
   const router = useRouter()

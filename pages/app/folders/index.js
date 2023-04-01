@@ -8,6 +8,7 @@ import { useModalContext } from "../../../context/ModalContext"
 import CreateFolder from "../../../components/modals/CreateFolder"
 import CreateItem from "../../../components/items/CreateItem"
 import { getUserPaymentData, getUserSession } from "../../../core/users"
+import CreateNote from "../../../components/modals/CreateNote"
 
 function Folders({ folders }) {
   const { toggleCreateFolderModal } = useModalContext()
@@ -29,8 +30,6 @@ function Folders({ folders }) {
           <CreateItem onClick={toggleCreateFolderModal} />
         </section>
       </section>
-
-      <CreateFolder />
     </Layout>
   )
 }

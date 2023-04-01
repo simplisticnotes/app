@@ -46,7 +46,7 @@ function Drawer({ children }) {
             </NavItem>
           </div>
 
-          <div className="">
+          <div className="pb-12">
             {pricingData.getUserPlan() === "FREE" && (
               <NavItem Icon={StarIcon} href="/pricing">
                 Upgrade

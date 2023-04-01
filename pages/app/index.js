@@ -38,8 +38,6 @@ function App({ notes, folders }) {
           <CreateItem onClick={toggleCreateFolderModal} />
         </section>
       </section>
-
-      <CreateNote />
     </Layout>
   )
 }

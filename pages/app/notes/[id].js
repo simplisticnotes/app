@@ -12,6 +12,7 @@ import { useModalContext } from "../../../context/ModalContext"
 import { decrypt } from "../../../core/encryption"
 import { getNoteById } from "../../../core/notes"
 import { getUserPaymentData, getUserSession } from "../../../core/users"
+import CreateNote from "../../../components/modals/CreateNote"
 
 const showEditor = (note, text, setText) => {
   return note.type == "Plain Text" ? (

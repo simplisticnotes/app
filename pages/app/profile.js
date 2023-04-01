@@ -16,6 +16,7 @@ import Link from "next/link"
 import PaddleScript from "../../components/PaddleScript"
 import { useModalContext } from "../../context/ModalContext"
 import CancelSubscription from "../../components/modals/CancelSubscription"
+import CreateNote from "../../components/modals/CreateNote"
 
 function Profile() {
   const user = useUser()

@@ -39,11 +39,9 @@ function Folder({ folder: initialFolder, notes }) {
             <NoteItem key={note.id} note={note} />
           ))}
 
-          <CreateItem onClick={toggleCreateNoteModal} />
+          <CreateItem onClick={() => toggleCreateNoteModal(folder.id)} />
         </section>
       </section>
-
-      <CreateNote folderId={folder.id} />
 
       <UpdateFolderName
         folderId={folder.id}

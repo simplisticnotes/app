@@ -10,6 +10,8 @@ import ShareNote from "./modals/ShareNote"
 import Sidebar from "./Sidebar"
 import SpeedDial from "./SpeedDial"
 import BottomNav from "./BottomNav"
+import Create from "./modals/Create"
+import CreateNote from "./modals/CreateNote"
 
 function Layout({ children, heading, updateName }) {
   return (
@@ -29,6 +31,8 @@ function Layout({ children, heading, updateName }) {
       <ShareNote />
       <RestoreNote />
       <DeleteTrash />
+      <Create />
+      <CreateNote />
 
       {/* <SpeedDial /> */}
       <BottomNav />
