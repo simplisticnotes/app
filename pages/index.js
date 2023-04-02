@@ -7,6 +7,7 @@ import Image from "next/image"
 import Feature from "../components/landingPage/Feature"
 import Footer from "../components/landingPage/Footer"
 import PricingItem from "../components/PricingItem"
+import Seo from "../components/Seo"
 
 function index() {
   useEffect(() => {
@@ -15,6 +16,11 @@ function index() {
 
   return (
     <>
+      <Seo
+        title="Simplistic Notes - Keep Your Notes Secure with End-to-End Encryption"
+        description=" Simplistic Notes is the perfect solution for securely creating, organizing, and sharing your notes. With end-to-end encryption and password protection, your notes are safe and secure. Plus, you can easily organize them into folders and share them with others."
+      />
+
       <div className="px-6 bg-[#F7FAFC] pb-20">
         <Navbar />
 

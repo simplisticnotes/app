@@ -14,7 +14,7 @@ function signin() {
   }, [user])
 
   return (
-    <>
+    <div className="px-6">
       <Logo textSize="text-4xl" imageSize="w-12" className="mt-5 mb-10" />
 
       <div className="w-96 mx-auto">
@@ -34,7 +34,7 @@ function signin() {
           }}
         />
       </div>
-    </>
+    </div>
   )
 }
 

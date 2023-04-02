@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer className="bg-gray-800 py-10">
       <div className="container max-w-6xl px-4">
-        <div className="flex gap-20 pb-10 pt-5 sm:flex-row flex-col">
+        <div className="flex gap-20 pb-10 pt-5 sm:flex-row flex-col justify-between">
           <div className="text-gray-200 flex flex-col items-center gap-2">
             <h3 className="text-2xl font-semibold">Pages</h3>
 
