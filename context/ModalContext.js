@@ -25,6 +25,7 @@ export const ModalContextProvider = ({ children }) => {
   const [restoreNoteId, setRestoreNoteId] = useState(null)
   const [deleteTrashId, setDeleteTrashId] = useState(null)
   const [createNoteFolderId, setCreateNoteFolderId] = useState(null)
+  const [showBottomNav, setShowBottomNav] = useState(true)
 
   const toggleCreateNoteModal = (folderId = null) => {
     setCreateNoteFolderId(folderId)
@@ -51,6 +52,7 @@ export const ModalContextProvider = ({ children }) => {
 
   const toggleNotePasswordModal = () => {
     setShowNotePasswordModal(!showNotePasswordModal)
+    setShowBottomNav(!showBottomNav)
   }
 
   const toggleNoteShareModal = (noteId) => {
@@ -104,7 +106,8 @@ export const ModalContextProvider = ({ children }) => {
     toggleCancelSubscriptionModal,
     showCreateModal,
     toggleCreateModal,
-    createNoteFolderId
+    createNoteFolderId,
+    showBottomNav
   }
 
   return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>

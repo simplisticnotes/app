@@ -6,15 +6,28 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { updateNoteText } from "../../core/notes"
 // import EditorToolbar, { modules, formats } from "./EditorToolbar"
 import axios from "axios"
+import { useLeavePageConfirmation } from "../../hooks/useLeavePageConfirmation"
+import { routeChangeDialogue } from "../../utils"
 
 function RichText({ value, onChange, noteId }) {
   const [charactersCount, setCharactersCount] = useState(0)
   const supabase = useSupabaseClient()
+  const [saving, setSaving] = useState(false)
+
+  useLeavePageConfirmation(
+    saving,
+    "Changes in the note will be lost if you leave the page!",
+    routeChangeDialogue
+  )
 
   const updateNote = async () => {
+    setSaving(true)
+
     const res = await axios.post("/api/encrypt", { text: value })
 
     await updateNoteText(supabase, noteId, res.data.encryptedText)
+
+    setSaving(false)
   }
 
   useEffect(() => {
@@ -24,6 +37,7 @@ function RichText({ value, onChange, noteId }) {
 
   return (
     <>
+      <p className="text-slate-400">{saving ? "Saving..." : "Saved"}</p>
       {/* <EditorToolbar /> */}
       <ReactQuill
         theme="snow"

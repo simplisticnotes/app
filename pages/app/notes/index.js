@@ -26,7 +26,7 @@ function Notes({ notes }) {
             <NoteItem key={note.id} note={note} />
           ))}
 
-          <CreateItem onClick={toggleCreateNoteModal} />
+          <CreateItem onClick={() => toggleCreateNoteModal()} />
         </section>
       </section>
     </Layout>

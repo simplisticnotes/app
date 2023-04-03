@@ -12,8 +12,11 @@ import SpeedDial from "./SpeedDial"
 import BottomNav from "./BottomNav"
 import Create from "./modals/Create"
 import CreateNote from "./modals/CreateNote"
+import { useModalContext } from "../context/ModalContext"
 
 function Layout({ children, heading, updateName }) {
+  const { showBottomNav } = useModalContext()
+
   return (
     <div className="flex">
       <Sidebar />
@@ -35,7 +38,7 @@ function Layout({ children, heading, updateName }) {
       <CreateNote />
 
       {/* <SpeedDial /> */}
-      <BottomNav />
+      {showBottomNav && <BottomNav />}
     </div>
   )
 }

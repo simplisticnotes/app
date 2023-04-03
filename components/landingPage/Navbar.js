@@ -17,7 +17,7 @@ function Navbar() {
           </a>
         </nav>
         <Link
-          href="/pricing"
+          href="/signin"
           className="btn btn-primary btn-outline btn-sm sm:btn-lg"
         >
           Get Started

@@ -73,14 +73,11 @@ function CreateNote({ folderId = null }) {
       toast.error("Please enter the name!")
       return
     }
-
     if (applyPassword && !password.trim().length) {
       toast.error("Please enter the password!")
       return
     }
-
     setLoading(true)
-
     const note = {
       name,
       type,
@@ -88,21 +85,16 @@ function CreateNote({ folderId = null }) {
       apply_password: applyPassword,
       password
     }
-
     if (folder) {
       note.folder_id = folder
     }
-
+    console.log(note, folder)
     const { error } = await createNote(supabase, note)
-
     if (error) {
       return toast.error(error.message)
     }
-
     setLoading(false)
-
     closeModal()
-
     toast.success("Note created successfully!")
     refreshPage(router)
   }

@@ -35,7 +35,7 @@ function index() {
               Stay organized, share, and protect your ideas effortlessly. Try it
               now and experience secure note-taking like never before.
             </p>
-            <Link href="/pricing" className="btn btn-primary sm:btn-lg mt-8">
+            <Link href="/signin" className="btn btn-primary sm:btn-lg mt-8">
               Get Started
             </Link>
           </div>
@@ -84,9 +84,13 @@ function index() {
         </div>
 
         <section className="container max-w-6xl mt-44" id="pricing">
-          <h1 className="text-6xl font-bold text-center text-primary mt-16 mb-8">
+          <h1 className="text-6xl font-bold text-center text-primary mt-16 mb-2">
             Pricing
           </h1>
+
+          <p className="text-center mb-8 text-xl">
+            Get started for free. No credit card required.
+          </p>
 
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto">
             <PricingItem plan="FREE" label="STARTER" pricingLabel="FREE" />
