@@ -5,26 +5,16 @@ import TodoForm from "./TodoForm"
 import { updateTodoNote } from "../../../core/notes"
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { v4 as uuid } from "uuid"
+import useFilterTodos from "../../../hooks/useFilterTodos"
 
 const Todos = ({ noteId, todos: initialTodos }) => {
   const [todoName, setTodoName] = useState("")
   const [todos, setTodos] = useState(initialTodos)
-  const [filteredTodos, setFilteredTodos] = useState(initialTodos)
   const [addLoading, setAddLoading] = useState(false)
-  const [filter, setFilter] = useState("All")
+
+  const { filter, setFilter, filteredTodos } = useFilterTodos(todos)
 
   const supabase = useSupabaseClient()
-
-  // apply filter
-  useEffect(() => {
-    if (filter === "All") {
-      setFilteredTodos(todos)
-    } else if (filter === "Completed") {
-      setFilteredTodos(todos.filter((todo) => todo.completed))
-    } else if (filter === "Uncompleted") {
-      setFilteredTodos(todos.filter((todo) => !todo.completed))
-    }
-  }, [filter, todos])
 
   const addTodoHandler = async (e) => {
     e.preventDefault()

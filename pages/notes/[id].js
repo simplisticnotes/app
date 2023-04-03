@@ -6,12 +6,15 @@ import PlainTextPublic from "../../components/public/PlainTextPublic"
 import RichTextPublic from "../../components/public/RichTextPublic"
 import { getNoteById } from "../../core/notes"
 import { getUserSession } from "../../core/users"
+import TodosPublic from "../../components/public/TodosPublic"
 
 const showEditor = (note, text) => {
   return note.type == "Plain Text" ? (
     <PlainTextPublic value={text} noteId={note.id} />
   ) : note.type == "Rich Text" ? (
     <RichTextPublic value={text} noteId={note.id} />
+  ) : note.type === "Todo" ? (
+    <TodosPublic todos={note.todos} />
   ) : null
 }
 
@@ -25,7 +28,7 @@ function Note({ note: initialNote }) {
   }
 
   useEffect(() => {
-    decryptNote()
+    if (note.type !== "Todo") decryptNote()
   }, [])
 
   return (

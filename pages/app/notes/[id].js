@@ -47,7 +47,7 @@ function Note({ note: initialNote }) {
   }, [])
 
   useEffect(() => {
-    if (note.type === "Plain Text" || note.type === "Rich Text") decryptNote()
+    if (note.type !== "Todo") decryptNote()
   }, [])
 
   return (

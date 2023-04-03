@@ -3,7 +3,7 @@ import React from "react"
 import Dropdown from "../../Dropdown"
 import DropdownItem from "../../Dropdown/DropdownItem"
 
-const TodoItem = ({ todo, onChange, onDelete }) => {
+const TodoItem = ({ todo, onChange = () => {}, onDelete }) => {
   return (
     <div className="flex items-center gap-2 shadow mb-4 p-2 last:mb-0 rounded relative">
       <div className="form-control">
@@ -24,9 +24,11 @@ const TodoItem = ({ todo, onChange, onDelete }) => {
         {todo.name}
       </p>
 
-      <Dropdown className="ml-auto">
-        <DropdownItem icon={TrashIcon} label="Delete" onClick={onDelete} />
-      </Dropdown>
+      {onDelete && (
+        <Dropdown className="ml-auto">
+          <DropdownItem icon={TrashIcon} label="Delete" onClick={onDelete} />
+        </Dropdown>
+      )}
     </div>
   )
 }
