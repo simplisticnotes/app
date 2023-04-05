@@ -13,6 +13,7 @@ import { decrypt } from "../../../core/encryption"
 import { getNoteById } from "../../../core/notes"
 import { getUserPaymentData, getUserSession } from "../../../core/users"
 import CreateNote from "../../../components/modals/CreateNote"
+import Seo from "../../../components/Seo"
 
 const showEditor = (note, text, setText) => {
   return note.type == "Plain Text" ? (
@@ -52,6 +53,11 @@ function Note({ note: initialNote }) {
 
   return (
     <Layout heading={note.name} updateName={toggleUpdateNoteNameModal}>
+      <Seo
+        title={`${note.name} - Simplistic Notes`}
+        description="Simplistic Notes offers affordable pricing plans to suit your note-taking needs, including a free plan with no credit card required. Choose the plan that's right for you and start taking notes with peace of mind"
+      />
+
       <Breadcrumb
         links={[
           { href: "/app", title: "Dashboard" },

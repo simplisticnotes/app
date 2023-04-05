@@ -9,12 +9,18 @@ import CreateFolder from "../../../components/modals/CreateFolder"
 import CreateItem from "../../../components/items/CreateItem"
 import { getUserPaymentData, getUserSession } from "../../../core/users"
 import CreateNote from "../../../components/modals/CreateNote"
+import Seo from "../../../components/Seo"
 
 function Folders({ folders }) {
   const { toggleCreateFolderModal } = useModalContext()
 
   return (
     <Layout heading="Folders">
+      <Seo
+        title={`Folders - Simplistic Notes`}
+        description="Simplistic Notes offers affordable pricing plans to suit your note-taking needs, including a free plan with no credit card required. Choose the plan that's right for you and start taking notes with peace of mind"
+      />
+
       <Breadcrumb
         links={[{ href: "/app", title: "Dashboard" }, { title: "Folders" }]}
       />

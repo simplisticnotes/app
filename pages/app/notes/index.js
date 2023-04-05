@@ -8,12 +8,18 @@ import { useModalContext } from "../../../context/ModalContext"
 import CreateItem from "../../../components/items/CreateItem"
 import CreateNote from "../../../components/modals/CreateNote"
 import { getUserPaymentData, getUserSession } from "../../../core/users"
+import Seo from "../../../components/Seo"
 
 function Notes({ notes }) {
   const { toggleCreateNoteModal } = useModalContext()
 
   return (
     <Layout heading="Notes">
+      <Seo
+        title={`Notes - Simplistic Notes`}
+        description="Simplistic Notes offers affordable pricing plans to suit your note-taking needs, including a free plan with no credit card required. Choose the plan that's right for you and start taking notes with peace of mind"
+      />
+
       <Breadcrumb
         links={[{ href: "/app", title: "Dashboard" }, { title: "Notes" }]}
       />

@@ -17,14 +17,13 @@ import PaddleScript from "../../components/PaddleScript"
 import { useModalContext } from "../../context/ModalContext"
 import CancelSubscription from "../../components/modals/CancelSubscription"
 import CreateNote from "../../components/modals/CreateNote"
+import Seo from "../../components/Seo"
 
 function Profile() {
   const user = useUser()
   const supabase = useSupabaseClient()
   const pricingData = usePricingContext()
   const { toggleCancelSubscriptionModal } = useModalContext()
-
-  console.log(pricingData.paymentData)
 
   const [fullName, setFullName] = useState(user.user_metadata?.full_name)
   const [loading, setLoading] = useState(false)
@@ -41,6 +40,11 @@ function Profile() {
 
   return (
     <>
+      <Seo
+        title={`Profile - Simplistic Notes`}
+        description="Simplistic Notes offers affordable pricing plans to suit your note-taking needs, including a free plan with no credit card required. Choose the plan that's right for you and start taking notes with peace of mind"
+      />
+
       <PaddleScript />
       <Layout heading="Notes">
         <Breadcrumb

@@ -17,6 +17,7 @@ import { refreshPage } from "../../utils"
 import { TrashIcon, ArrowUpOnSquareIcon } from "@heroicons/react/24/outline"
 import Spinner from "../../components/Spinner"
 import CreateNote from "../../components/modals/CreateNote"
+import Seo from "../../components/Seo"
 
 function Trash({ notes }) {
   const router = useRouter()
@@ -58,6 +59,11 @@ function Trash({ notes }) {
 
   return (
     <Layout heading="Notes">
+      <Seo
+        title={`Trash - Simplistic Notes`}
+        description="Simplistic Notes offers affordable pricing plans to suit your note-taking needs, including a free plan with no credit card required. Choose the plan that's right for you and start taking notes with peace of mind"
+      />
+
       <Breadcrumb
         links={[{ href: "/app", title: "Dashboard" }, { title: "Trash" }]}
       />

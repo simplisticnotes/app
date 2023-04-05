@@ -9,12 +9,18 @@ import { useModalContext } from "../../context/ModalContext"
 import { getRecentFolders } from "../../core/folders"
 import CreateNote from "../../components/modals/CreateNote"
 import { getUserPaymentData, getUserSession } from "../../core/users"
+import Seo from "../../components/Seo"
 
 function App({ notes, folders }) {
   const { toggleCreateNoteModal, toggleCreateFolderModal } = useModalContext()
 
   return (
     <Layout heading="Dashboard">
+      <Seo
+        title={`Dashboard - Simplistic Notes`}
+        description="Simplistic Notes offers affordable pricing plans to suit your note-taking needs, including a free plan with no credit card required. Choose the plan that's right for you and start taking notes with peace of mind"
+      />
+
       <section>
         <h2 className="text-2xl font-semibold">Recent Notes</h2>
 

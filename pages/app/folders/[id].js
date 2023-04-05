@@ -15,6 +15,7 @@ import { decrypt } from "../../../core/encryption"
 import { getFolderById } from "../../../core/folders"
 import { getNotes, getNotesByFolderId } from "../../../core/notes"
 import { getUserPaymentData, getUserSession } from "../../../core/users"
+import Seo from "../../../components/Seo"
 
 function Folder({ folder: initialFolder, notes }) {
   const [folder, setFolder] = useState(initialFolder)
@@ -23,6 +24,11 @@ function Folder({ folder: initialFolder, notes }) {
 
   return (
     <Layout heading={folder.name} updateName={toggleUpdateFolderNameModal}>
+      <Seo
+        title={`${folder.name} - Simplistic Notes`}
+        description="Simplistic Notes offers affordable pricing plans to suit your note-taking needs, including a free plan with no credit card required. Choose the plan that's right for you and start taking notes with peace of mind"
+      />
+
       <Breadcrumb
         links={[
           { href: "/app", title: "Dashboard" },

@@ -7,6 +7,7 @@ import RichTextPublic from "../../components/public/RichTextPublic"
 import { getNoteById } from "../../core/notes"
 import { getUserSession } from "../../core/users"
 import TodosPublic from "../../components/public/TodosPublic"
+import Seo from "../../components/Seo"
 
 const showEditor = (note, text) => {
   return note.type == "Plain Text" ? (
@@ -33,6 +34,11 @@ function Note({ note: initialNote }) {
 
   return (
     <div className="mb-10">
+      <Seo
+        title={`${note.name} - Simplistic Notes`}
+        description="Simplistic Notes offers affordable pricing plans to suit your note-taking needs, including a free plan with no credit card required. Choose the plan that's right for you and start taking notes with peace of mind"
+      />
+
       <header className="bg-secondary w-full py-4 px-4 font-semibold flex gap-2 items-center justify-center">
         <Link href="/" className="flex items-center">
           <img src="/logo.svg" alt="Simplistic Notes Logo" className="w-6" />

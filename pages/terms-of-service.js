@@ -1,6 +1,13 @@
+import Seo from "../components/Seo"
+
 function TermsOfService() {
   return (
     <div style={{ margin: "30px" }}>
+      <Seo
+        title="Terms of Service - Simplistic Notes"
+        description="Simplistic Notes offers affordable pricing plans to suit your note-taking needs, including a free plan with no credit card required. Choose the plan that's right for you and start taking notes with peace of mind"
+      />
+
       <div>
         <style
           dangerouslySetInnerHTML={{
