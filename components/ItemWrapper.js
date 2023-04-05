@@ -66,7 +66,7 @@ function ItemWrapper({
   )
 
   const styling = [
-    "relative gap-3 xs:w-48 w-full  flex flex-col items-center py-4 px-2 cursor-pointer shadow-md hover:shadow-lg hover:border-primary border-white border-2",
+    "relative gap-3 xs:w-48 w-full  flex flex-col items-center py-4 px-2 cursor-pointer shadow hover:shadow-lg hover:border-2 hover:border-primary border border-slate-200",
     className
   ].join(" ")
 
