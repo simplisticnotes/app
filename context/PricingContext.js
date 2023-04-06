@@ -53,7 +53,7 @@ export const PricingContextProvider = ({
     }
 
     Paddle.Checkout.open({
-      product: 44837,
+      product: process.env.NEXT_PUBLIC_PADDLE_PRODUCT_ID,
       email: user.email,
       disableLogout: true,
       passthrough: JSON.stringify(passthrough),
