@@ -88,14 +88,14 @@ function CreateNote({ folderId = null }) {
     if (folder) {
       note.folder_id = folder
     }
-    console.log(note, folder)
     const { error } = await createNote(supabase, note)
+    setLoading(false)
     if (error) {
       return toast.error(error.message)
     }
-    setLoading(false)
     closeModal()
     toast.success("Note created successfully!")
+
     refreshPage(router)
   }
 

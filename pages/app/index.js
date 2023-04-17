@@ -1,5 +1,5 @@
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs"
-import React from "react"
+import React, { useEffect } from "react"
 import CreateItem from "../../components/items/CreateItem"
 import FolderItem from "../../components/items/FolderItem"
 import Layout from "../../components/Layout"
