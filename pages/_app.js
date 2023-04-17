@@ -5,6 +5,8 @@ import { useState } from "react"
 import { ModalContextProvider } from "../context/ModalContext"
 import { Toaster } from "react-hot-toast"
 import { PricingContextProvider } from "../context/PricingContext"
+import { NoteContextProvider } from "../context/NoteContext"
+import { FolderContextProvider } from "../context/FolderContext"
 
 function MyApp({ Component, pageProps }) {
   const [supabase] = useState(() => createBrowserSupabaseClient())
@@ -16,7 +18,11 @@ function MyApp({ Component, pageProps }) {
     >
       <ModalContextProvider>
         <PricingContextProvider paymentData={pageProps.paymentData}>
-          <Component {...pageProps} />
+          <NoteContextProvider notes={pageProps.notes}>
+            <FolderContextProvider folders={pageProps.folders}>
+              <Component {...pageProps} />
+            </FolderContextProvider>
+          </NoteContextProvider>
         </PricingContextProvider>
       </ModalContextProvider>
 

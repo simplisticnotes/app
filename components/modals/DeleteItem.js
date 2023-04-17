@@ -8,6 +8,7 @@ import Spinner from "../Spinner"
 import { useModalContext } from "../../context/ModalContext"
 import { toast } from "react-hot-toast"
 import { refreshPage } from "../../utils"
+import { useNoteContext } from "../../context/NoteContext"
 
 function DeleteItem() {
   const {
@@ -16,6 +17,7 @@ function DeleteItem() {
     deleteItemId,
     deleteType
   } = useModalContext()
+  const noteContext = useNoteContext()
 
   const supabase = useSupabaseClient()
   const user = useUser()
@@ -31,16 +33,19 @@ function DeleteItem() {
       var { error } = await deleteFolder(supabase, deleteItemId)
     }
 
+    setLoading(false)
+
     if (error) {
       return toast.error(error.message)
     }
 
-    setLoading(false)
-
     toggleDeleteItemModal()
 
     toast.success("Deleted successfully!")
-    refreshPage(router)
+
+    if (deleteType === "Note") {
+      noteContext.deleteNote(deleteItemId)
+    }
   }
 
   return (

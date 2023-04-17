@@ -9,9 +9,11 @@ import CreateItem from "../../../components/items/CreateItem"
 import CreateNote from "../../../components/modals/CreateNote"
 import { getUserPaymentData, getUserSession } from "../../../core/users"
 import Seo from "../../../components/Seo"
+import { useNoteContext } from "../../../context/NoteContext"
 
-function Notes({ notes }) {
+function Notes({}) {
   const { toggleCreateNoteModal } = useModalContext()
+  const { notes } = useNoteContext()
 
   return (
     <Layout heading="Notes">

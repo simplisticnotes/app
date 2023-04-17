@@ -10,9 +10,11 @@ import CreateItem from "../../../components/items/CreateItem"
 import { getUserPaymentData, getUserSession } from "../../../core/users"
 import CreateNote from "../../../components/modals/CreateNote"
 import Seo from "../../../components/Seo"
+import { useFolderContext } from "../../../context/FolderContext"
 
-function Folders({ folders }) {
+function Folders({}) {
   const { toggleCreateFolderModal } = useModalContext()
+  const { folders } = useFolderContext()
 
   return (
     <Layout heading="Folders">

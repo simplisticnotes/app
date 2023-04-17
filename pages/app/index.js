@@ -4,15 +4,22 @@ import CreateItem from "../../components/items/CreateItem"
 import FolderItem from "../../components/items/FolderItem"
 import Layout from "../../components/Layout"
 import NoteItem from "../../components/items/NoteItem"
-import { getRecentNotes } from "../../core/notes"
+import { getNotes, getRecentNotes } from "../../core/notes"
 import { useModalContext } from "../../context/ModalContext"
-import { getRecentFolders } from "../../core/folders"
+import { getFolders, getRecentFolders } from "../../core/folders"
 import CreateNote from "../../components/modals/CreateNote"
 import { getUserPaymentData, getUserSession } from "../../core/users"
 import Seo from "../../components/Seo"
+import { useNoteContext } from "../../context/NoteContext"
+import { useFolderContext } from "../../context/FolderContext"
 
-function App({ notes, folders }) {
+function App({}) {
   const { toggleCreateNoteModal, toggleCreateFolderModal } = useModalContext()
+  const { getRecentNotes } = useNoteContext()
+  const { getRecentFolders } = useFolderContext()
+
+  const notes = getRecentNotes()
+  const folders = getRecentFolders()
 
   return (
     <Layout heading="Dashboard">
@@ -67,10 +74,8 @@ export const getServerSideProps = async (ctx) => {
     session.user.id
   )
 
-  const { data: notes, error: notesError } = await getRecentNotes(supabase)
-  const { data: folders, error: foldersError } = await getRecentFolders(
-    supabase
-  )
+  const { data: notes, error: notesError } = await getNotes(supabase)
+  const { data: folders, error: foldersError } = await getFolders(supabase)
 
   // TODO: Handle error
 

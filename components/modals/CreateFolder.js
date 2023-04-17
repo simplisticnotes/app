@@ -6,9 +6,12 @@ import Spinner from "../Spinner"
 import { useModalContext } from "../../context/ModalContext"
 import { toast } from "react-hot-toast"
 import { refreshPage } from "../../utils"
+import { useFolderContext } from "../../context/FolderContext"
 
 function CreateFolder() {
   const { showCreateFolderModal, toggleCreateFolderModal } = useModalContext()
+  const { addFolder } = useFolderContext()
+
   const [name, setName] = useState("Untitled")
   const supabase = useSupabaseClient()
   const user = useUser()
@@ -34,21 +37,22 @@ function CreateFolder() {
 
     setLoading(true)
 
-    const { error } = await createFolder(supabase, {
+    const { data, error } = await createFolder(supabase, {
       name,
       user_id: user.id
     })
+
+    setLoading(false)
 
     if (error) {
       return toast.error(error.message)
     }
 
-    setLoading(false)
-
     closeModal()
 
     toast.success("Folder created successfully!")
-    refreshPage(router)
+
+    addFolder(data)
   }
 
   return (

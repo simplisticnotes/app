@@ -18,7 +18,7 @@ export const getFolderById = async (supabase, folderId) => {
 }
 
 export const createFolder = async (supabase, folder) => {
-  return supabase.from("folders").insert(folder)
+  return supabase.from("folders").insert(folder).select("*").single()
 }
 
 export const updateFolderName = async (supabase, folderId, name) => {

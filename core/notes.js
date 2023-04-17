@@ -26,7 +26,7 @@ export const getNoteById = async (supabase, noteId) => {
 }
 
 export const createNote = async (supabase, note) => {
-  return supabase.from("notes").insert(note)
+  return supabase.from("notes").insert(note).select("*").single()
 }
 
 export const updateNoteText = async (supabase, noteId, text) => {

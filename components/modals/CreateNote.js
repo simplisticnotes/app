@@ -9,11 +9,13 @@ import { toast } from "react-hot-toast"
 import { usePricingContext } from "../../context/PricingContext"
 import { refreshPage } from "../../utils"
 import { getFolders } from "../../core/folders"
+import { useNoteContext } from "../../context/NoteContext"
 
 function CreateNote({ folderId = null }) {
   const pricingData = usePricingContext()
   const { showCreateNoteModal, toggleCreateNoteModal, createNoteFolderId } =
     useModalContext()
+  const { addNote } = useNoteContext()
 
   const [name, setName] = useState("Untitled")
   const [type, setType] = useState(getNoteTypes(pricingData.getUserPlan())[0])
@@ -33,7 +35,6 @@ function CreateNote({ folderId = null }) {
     setFoldersLoading(true)
 
     const { data } = await getFolders(supabase)
-    console.log(data)
     setFolders(data)
 
     setFoldersLoading(false)
@@ -88,15 +89,18 @@ function CreateNote({ folderId = null }) {
     if (folder) {
       note.folder_id = folder
     }
-    const { error } = await createNote(supabase, note)
+    const { data, error } = await createNote(supabase, note)
+
     setLoading(false)
+
     if (error) {
       return toast.error(error.message)
     }
+
+    addNote(data)
+
     closeModal()
     toast.success("Note created successfully!")
-
-    refreshPage(router)
   }
 
   return (
