@@ -4,8 +4,13 @@ const NoteContext = createContext()
 
 export const useNoteContext = () => useContext(NoteContext)
 
-export const NoteContextProvider = ({ children, notes: initialNotes }) => {
-  const [notes, setNotes] = useState(initialNotes)
+export const NoteContextProvider = ({
+  children,
+  notes: initialNotes,
+  trashNotes: initialTrashNotes
+}) => {
+  const [notes, setNotes] = useState(initialNotes || [])
+  const [trashNotes, setTrashNotes] = useState(initialTrashNotes || [])
 
   const addNote = (note) => {
     setNotes([note, ...notes])
@@ -19,15 +24,30 @@ export const NoteContextProvider = ({ children, notes: initialNotes }) => {
     return notes.slice(0, 5)
   }
 
+  const deleteTrashNote = (id) => {
+    setTrashNotes(trashNotes.filter((note) => note.id !== id))
+  }
+
+  const clearTrashNotes = () => {
+    setTrashNotes([])
+  }
+
   useEffect(() => {
-    setNotes(initialNotes)
+    setNotes(initialNotes || [])
   }, [initialNotes])
+
+  useEffect(() => {
+    setTrashNotes(initialTrashNotes || [])
+  }, [initialTrashNotes])
 
   const data = {
     notes,
     addNote,
     deleteNote,
-    getRecentNotes
+    getRecentNotes,
+    trashNotes,
+    deleteTrashNote,
+    clearTrashNotes
   }
 
   return <NoteContext.Provider value={data}>{children}</NoteContext.Provider>

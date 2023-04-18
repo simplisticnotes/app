@@ -18,7 +18,10 @@ function MyApp({ Component, pageProps }) {
     >
       <ModalContextProvider>
         <PricingContextProvider paymentData={pageProps.paymentData}>
-          <NoteContextProvider notes={pageProps.notes}>
+          <NoteContextProvider
+            notes={pageProps.notes}
+            trashNotes={pageProps.trashNotes}
+          >
             <FolderContextProvider folders={pageProps.folders}>
               <Component {...pageProps} />
             </FolderContextProvider>

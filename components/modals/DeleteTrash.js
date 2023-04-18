@@ -13,10 +13,12 @@ import Spinner from "../Spinner"
 import { useModalContext } from "../../context/ModalContext"
 import { toast } from "react-hot-toast"
 import { refreshPage } from "../../utils"
+import { useNoteContext } from "../../context/NoteContext"
 
 function DeleteTrash() {
   const { showDeleteTrashModal, toggleDeleteTrashModal, deleteTrashId } =
     useModalContext()
+  const { deleteTrashNote } = useNoteContext()
 
   const supabase = useSupabaseClient()
   const user = useUser()
@@ -28,16 +30,17 @@ function DeleteTrash() {
 
     var { error } = await deleteNoteFromTrash(supabase, deleteTrashId)
 
+    setLoading(false)
+
     if (error) {
       return toast.error(error.message)
     }
 
-    setLoading(false)
-
     toggleDeleteTrashModal()
 
     toast.success("Note deleted from trash!")
-    refreshPage(router)
+
+    deleteTrashNote(deleteTrashId)
   }
 
   return (

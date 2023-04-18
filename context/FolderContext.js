@@ -8,7 +8,7 @@ export const FolderContextProvider = ({
   children,
   folders: initialFolders
 }) => {
-  const [folders, setFolders] = useState(initialFolders)
+  const [folders, setFolders] = useState(initialFolders || [])
 
   const addFolder = (folder) => {
     setFolders([folder, ...folders])
@@ -23,7 +23,7 @@ export const FolderContextProvider = ({
   }
 
   useEffect(() => {
-    setFolders(initialFolders)
+    setFolders(initialFolders || [])
   }, [initialFolders])
 
   const data = {

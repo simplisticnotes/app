@@ -9,6 +9,7 @@ import { useModalContext } from "../../context/ModalContext"
 import { toast } from "react-hot-toast"
 import { refreshPage } from "../../utils"
 import { useNoteContext } from "../../context/NoteContext"
+import { useFolderContext } from "../../context/FolderContext"
 
 function DeleteItem() {
   const {
@@ -18,6 +19,7 @@ function DeleteItem() {
     deleteType
   } = useModalContext()
   const noteContext = useNoteContext()
+  const folderContext = useFolderContext()
 
   const supabase = useSupabaseClient()
   const user = useUser()
@@ -45,6 +47,9 @@ function DeleteItem() {
 
     if (deleteType === "Note") {
       noteContext.deleteNote(deleteItemId)
+    }
+    if (deleteType === "Folder") {
+      folderContext.deleteFolder(deleteItemId)
     }
   }
 

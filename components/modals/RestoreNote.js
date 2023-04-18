@@ -8,10 +8,12 @@ import Spinner from "../Spinner"
 import { useModalContext } from "../../context/ModalContext"
 import { toast } from "react-hot-toast"
 import { refreshPage } from "../../utils"
+import { useNoteContext } from "../../context/NoteContext"
 
 function RestoreNote() {
   const { restoreNoteId, showRestoreNoteModal, toggleRestoreNoteModal } =
     useModalContext()
+  const { deleteTrashNote } = useNoteContext()
 
   const supabase = useSupabaseClient()
   const user = useUser()
@@ -23,16 +25,17 @@ function RestoreNote() {
 
     var { error } = await restoreNote(supabase, restoreNoteId)
 
+    setLoading(false)
+
     if (error) {
       return toast.error(error.message)
     }
 
-    setLoading(false)
-
     toggleRestoreNoteModal()
 
     toast.success("Note restored successfully!")
-    refreshPage(router)
+
+    deleteTrashNote(restoreNoteId)
   }
 
   return (

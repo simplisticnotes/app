@@ -18,27 +18,30 @@ import { TrashIcon, ArrowUpOnSquareIcon } from "@heroicons/react/24/outline"
 import Spinner from "../../components/Spinner"
 import CreateNote from "../../components/modals/CreateNote"
 import Seo from "../../components/Seo"
+import { useNoteContext } from "../../context/NoteContext"
 
-function Trash({ notes }) {
+function Trash({}) {
   const router = useRouter()
   const supabase = useSupabaseClient()
   const [clearTrashLoading, setClearTrashLoading] = useState(false)
   const [restoreTrashLoading, setRestoreTrashLoading] = useState(false)
+
+  const { trashNotes, clearTrashNotes } = useNoteContext()
 
   const clearTrashHandler = async () => {
     setClearTrashLoading(true)
 
     const { error } = await clearTrash(supabase)
 
+    setClearTrashLoading(false)
+
     if (error) {
       return toast.error(error.message)
     }
 
-    setClearTrashLoading(false)
-
     toast.success("Trash cleared!")
 
-    refreshPage(router)
+    clearTrashNotes()
   }
 
   const restoreTrashHandler = async () => {
@@ -46,15 +49,15 @@ function Trash({ notes }) {
 
     const { error } = await restoreTrash(supabase)
 
+    setRestoreTrashLoading(false)
+
     if (error) {
       return toast.error(error.message)
     }
 
-    setRestoreTrashLoading(false)
-
     toast.success("Trash restored!")
 
-    refreshPage(router)
+    clearTrashNotes()
   }
 
   return (
@@ -71,7 +74,7 @@ function Trash({ notes }) {
       <section>
         <h2 className="text-2xl font-semibold">Trash</h2>
 
-        {notes.length ? (
+        {trashNotes.length ? (
           <div className="flex justify-between mt-8">
             <button
               className="btn btn-primary btn-outline flex items-center gap-2"
@@ -102,11 +105,11 @@ function Trash({ notes }) {
         ) : null}
 
         <section className="flex gap-8 mt-7 flex-wrap">
-          {notes.length === 0 ? (
+          {trashNotes.length === 0 ? (
             <p className="text-lg">Trash is empty!</p>
           ) : null}
 
-          {notes.map((note) => (
+          {trashNotes.map((note) => (
             <NoteItem
               key={note.id}
               note={note}
@@ -142,14 +145,14 @@ export const getServerSideProps = async (ctx) => {
     session.user.id
   )
 
-  const { data: notes, error } = await getNotesFromTrash(supabase)
+  const { data: trashNotes, error } = await getNotesFromTrash(supabase)
 
   // TODO: Handle error
 
   return {
     props: {
       initialSession: session,
-      notes,
+      trashNotes,
       paymentData
     }
   }
