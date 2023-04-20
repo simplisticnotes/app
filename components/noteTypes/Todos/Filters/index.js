@@ -1,11 +1,18 @@
 import FilterItem from "./FilterItem"
+import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline"
 
 const Filters = ({ filter, setFilter }) => {
   return (
-    <section className="shadow p-5 border border-gray-100 max-w-xl rounded mx-auto mb-6">
-      <h2 className="font-semibold text-xl">Filters</h2>
+    <section
+      tabIndex={0}
+      className="collapse collapse-arrow shadow border border-gray-100 max-w-xl rounded mx-auto mb-6"
+    >
+      <input type="checkbox" className="peer" />
+      <h2 className="font-semibold text-xl collapse-title flex items-center gap-2">
+        <AdjustmentsHorizontalIcon className="w-5 -mt-1" /> Filters
+      </h2>
 
-      <div className="flex gap-7 flex-wrap mt-4">
+      <div className="flex gap-7 flex-wrap collapse-content">
         <FilterItem
           id="radio-all"
           label="All"
