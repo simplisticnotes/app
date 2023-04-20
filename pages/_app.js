@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast"
 import { PricingContextProvider } from "../context/PricingContext"
 import { NoteContextProvider } from "../context/NoteContext"
 import { FolderContextProvider } from "../context/FolderContext"
+import { Analytics } from "@vercel/analytics/react"
 
 function MyApp({ Component, pageProps }) {
   const [supabase] = useState(() => createBrowserSupabaseClient())
@@ -30,6 +31,7 @@ function MyApp({ Component, pageProps }) {
       </ModalContextProvider>
 
       <Toaster />
+      <Analytics />
     </SessionContextProvider>
   )
 }
