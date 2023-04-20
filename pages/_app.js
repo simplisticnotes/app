@@ -25,13 +25,13 @@ function MyApp({ Component, pageProps }) {
           >
             <FolderContextProvider folders={pageProps.folders}>
               <Component {...pageProps} />
+              <Analytics />
             </FolderContextProvider>
           </NoteContextProvider>
         </PricingContextProvider>
       </ModalContextProvider>
 
       <Toaster />
-      <Analytics />
     </SessionContextProvider>
   )
 }
