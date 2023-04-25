@@ -1,13 +1,5 @@
-import React, { useState } from "react"
-import { NOTE_TYPES } from "../../constants/notes"
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
-import { useRouter } from "next/router"
-import { createNote, deleteNote } from "../../core/notes"
-import { deleteFolder } from "../../core/folders"
-import Spinner from "../Spinner"
+import React from "react"
 import { useModalContext } from "../../context/ModalContext"
-import { toast } from "react-hot-toast"
-import { refreshPage } from "../../utils"
 import { usePricingContext } from "../../context/PricingContext"
 
 function CancelSubscription() {

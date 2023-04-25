@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/24/outline"
 import Dropdown from "./Dropdown"
 import DropdownItem from "./Dropdown/DropdownItem"
+import { usePricingContext } from "../context/PricingContext"
 
 function ItemWrapper({
   children,
@@ -18,6 +19,8 @@ function ItemWrapper({
   onRestore,
   onDeleteTrash
 }) {
+  const pricingData = usePricingContext()
+
   const dropdownItemClickHandler = (doSomething) => {
     return (e) => {
       e.preventDefault()
@@ -30,6 +33,7 @@ function ItemWrapper({
       <Dropdown className="absolute top-0 right-2">
         {onShare && (
           <DropdownItem
+            disabled={pricingData.getUserPlan() === "FREE"}
             icon={ShareIcon}
             label="Share"
             onClick={dropdownItemClickHandler(onShare)}

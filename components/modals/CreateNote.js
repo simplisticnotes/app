@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { getNoteTypes } from "../../constants/notes"
+import { NOTE_TYPES, getNoteTypes } from "../../constants/notes"
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
 import { useRouter } from "next/router"
 import { createNote } from "../../core/notes"
@@ -10,6 +10,7 @@ import { usePricingContext } from "../../context/PricingContext"
 import { refreshPage } from "../../utils"
 import { getFolders } from "../../core/folders"
 import { useNoteContext } from "../../context/NoteContext"
+import { StarIcon } from "@heroicons/react/24/outline"
 
 function CreateNote({ folderId = null }) {
   const pricingData = usePricingContext()
@@ -137,9 +138,16 @@ function CreateNote({ folderId = null }) {
               value={type}
               onChange={changeType}
             >
-              {getNoteTypes(pricingData.getUserPlan()).map((noteType, i) => (
-                <option value={noteType} key={noteType}>
-                  {noteType}
+              {NOTE_TYPES.map((noteType, i) => (
+                <option
+                  value={noteType.title}
+                  key={noteType.title}
+                  disabled={
+                    !noteType.plans.includes("FREE") &&
+                    pricingData.getUserPlan() === "FREE"
+                  }
+                >
+                  {noteType.title}
                 </option>
               ))}
             </select>
@@ -152,6 +160,7 @@ function CreateNote({ folderId = null }) {
               className="select select-bordered text-xl"
               value={folder}
               onChange={changeFolder}
+              disabled={pricingData.getUserPlan() === "FREE"}
             >
               {[{ id: null, name: "No Folder" }, ...folders].map((folder) => (
                 <option value={folder.id} key={folder.id}>

@@ -13,6 +13,7 @@ import BottomNav from "./BottomNav"
 import Create from "./modals/Create"
 import CreateNote from "./modals/CreateNote"
 import { useModalContext } from "../context/ModalContext"
+import UpgradePlan from "./modals/UpgradePlan"
 
 function Layout({ children, heading, updateName }) {
   const { showBottomNav } = useModalContext()
@@ -36,6 +37,7 @@ function Layout({ children, heading, updateName }) {
       <DeleteTrash />
       <Create />
       <CreateNote />
+      <UpgradePlan />
 
       {/* <SpeedDial /> */}
       {showBottomNav && <BottomNav />}
